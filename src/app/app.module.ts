@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { DataComponent } from './components/data/data.component';
-import { CanActivateData } from './components/data/activationGuard';
+import { LoginGuard } from './helpers/loginGuard';
 
-import { fakeBackendProvider } from './helpers/fake-backend.helper';
+import { FakeBackendProvider } from './helpers/fake-backend.helper';
 import { AuthService } from './services/auth.service';
 
 @NgModule({
@@ -25,15 +25,26 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'data', component: DataComponent, canActivate: [CanActivateData] },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        canActivateChild: [LoginGuard],
+        children: [
+          { path: 'data', component: DataComponent },
+        ]
+      },
+      { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: '**', redirectTo: '' }
     ])
   ],
   providers: [
-    CanActivateData,
-    fakeBackendProvider,
+    LoginGuard,
+    FakeBackendProvider,
     AuthService,
   ],
   bootstrap: [AppComponent]
