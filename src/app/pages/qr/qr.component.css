@@ -1,0 +1,19 @@
+.centering-container {
+    display: flex;
+    justify-content: center;
+}
+
+.mb-40 {
+    margin-bottom: 40px;
+}
+
+.scanner-window {
+    margin: auto;
+    width: 60%;
+}
+
+.viewer-window {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}

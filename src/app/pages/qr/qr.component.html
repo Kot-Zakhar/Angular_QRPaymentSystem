@@ -1,0 +1,28 @@
+<!-- <mat-slide-toggle
+    [(ngModel)]="checked">
+    Scanner
+</mat-slide-toggle> -->
+<!-- <zxing-scanner #scanner
+    [enable]="checked"
+    (camerasFound)="camerasFoundHandler($event)"
+    (camerasNotFound)="camerasNotFoundHandler($event)"
+    (scanSuccess)="scanSuccessHandler($event)"
+    (scanError)="scanErrorHandler($event)"
+    class="scanner-window"
+    >
+</zxing-scanner> -->
+<div class="centering-container mb-40">
+    <button mat-raised-button color="primary" [disabled]="videoDeviceNotFound" (click)="onScan($event)">Scan</button>
+</div>
+<div class="centering-container">
+    <video
+        [hidden]="scannerHidden"
+        id="video"
+        class="scanner-window"
+    ></video>
+</div>
+<div class="viewer-window">
+    <mat-form-field>
+        <textarea matInput placeholder="Payload" readonly [(ngModel)]="payload"></textarea>
+    </mat-form-field>
+</div>
