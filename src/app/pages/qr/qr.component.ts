@@ -10,6 +10,7 @@ export class QrComponent implements OnInit {
   // @ViewChild('#scanner', { static: false })
   scanner: BrowserQRCodeReader;
   selectedDevice: VideoInputDevice;
+  availableDevices: VideoInputDevice[];
 
   videoDeviceNotFound = false;
   scannerHidden = true;
@@ -25,10 +26,12 @@ export class QrComponent implements OnInit {
     this.scanner.getVideoInputDevices()
       .then((videoInputDevices: VideoInputDevice[]) => {
         if (videoInputDevices.length > 0) {
+          this.availableDevices = videoInputDevices;
           this.selectedDevice = videoInputDevices[0];
           console.info('Video devices found.', videoInputDevices);
           this.videoDeviceNotFound = false;
         } else {
+          this.availableDevices = null;
           this.selectedDevice = null;
           console.error('Video device not found.');
           this.videoDeviceNotFound = true;
@@ -39,9 +42,12 @@ export class QrComponent implements OnInit {
       });
   }
 
-  onScan(event) {
-    console.log('Scan initiated:', event);
-    console.info('scanner: ', this.scanner);
+  onScan() {
+    console.log('Scan initiated');
+    if (!this.selectedDevice) {
+      alert("No video device available or selected.");
+      return;
+    }
     this.scannerHidden = false;
     this.scanner.decodeFromInputVideoDevice(this.selectedDevice.deviceId, 'video')
       .then(result => {
@@ -56,23 +62,10 @@ export class QrComponent implements OnInit {
       });
   }
 
-  // toggleCamera(event?: any) {
-  //   console.log(event);
-  //   this.checked = event.checked;
-  // }
-
-  // camerasFoundHandler(event) {
-  //   console.log('camerasFound', event);
-  // }
-  // camerasNotFoundHandler(event) {
-  //   console.log('camerasNotFound', event);
-  // }
-  // scanSuccessHandler(event) {
-  //   console.log('scanSuccess', event);
-  //   this.payload = event;
-  // }
-  // scanErrorHandler(event) {
-  //   console.log('scanError', event);
-  // }
-
+  onScanReset() {
+    console.log('Scan reset initiated');
+    this.scanner.reset();
+    this.payload = '';
+    this.scannerHidden = true;
+  }
 }
