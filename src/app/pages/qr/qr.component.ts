@@ -68,4 +68,8 @@ export class QrComponent implements OnInit {
     this.payload = '';
     this.scannerHidden = true;
   }
+
+  // onLoadImage() {
+
+  // }
 }

@@ -6,24 +6,40 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { DataComponent } from './pages/data/data.component';
-import { QrComponent } from './pages/qr/qr.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
 
-import { LoginGuard } from './helpers/loginGuard';
-import { FakeBackendProvider } from './helpers/fake-backend.helper';
-import { AuthService } from './services/auth.service';
+import {
+  NavigationComponent,
+  QrScannerComponent,
+  QrViewerComponent
+} from './components';
 
-import { MatSliderModule } from '@angular/material/slider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSelectModule } from '@angular/material/select';
+import {
+  HomeComponent,
+  LoginComponent,
+  DataComponent,
+  QrComponent,
+} from './pages';
+
+import {
+  LoginGuard,
+  FakeBackendProvider
+} from './helpers';
+
+import {
+  AuthService
+} from './services';
+
+import {
+  MatSliderModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSlideToggleModule,
+  MatSelectModule,
+  MatIconModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -33,6 +49,8 @@ import { MatSelectModule } from '@angular/material/select';
     DataComponent,
     QrComponent,
     NavigationComponent,
+    QrScannerComponent,
+    QrViewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +67,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatIconModule,
 
     RouterModule.forRoot([
       {

@@ -1,19 +1,11 @@
-<!-- <mat-slide-toggle
-    [(ngModel)]="checked">
-    Scanner
-</mat-slide-toggle> -->
-<!-- <zxing-scanner #scanner
-    [enable]="checked"
-    (camerasFound)="camerasFoundHandler($event)"
-    (camerasNotFound)="camerasNotFoundHandler($event)"
-    (scanSuccess)="scanSuccessHandler($event)"
-    (scanError)="scanErrorHandler($event)"
-    class="scanner-window"
-    >
-</zxing-scanner> -->
 <div class="centering-container mb-40">
-    <button class="mx-4" mat-raised-button color="accent" [disabled]="videoDeviceNotFound" (click)="onScan()">Scan</button>
-    <button class="mx-4" mat-raised-button color="primary" [disabled]="!selectedDevice" (click)="onScanReset()">Reset</button>
+    <ng-container *ngIf="scannerHidden; else scannerNotHiddenTemplate">
+        <button class="mx-4" mat-raised-button color="accent" [disabled]="videoDeviceNotFound" (click)="onScan()">Scan</button>
+        <!-- <button class="mx-4" mat-raised-button aria-label="Open image" color="accent" (click)="onLoadImage()"><mat-icon>folder_open</mat-icon></button> -->
+    </ng-container>
+    <ng-template #scannerNotHiddenTemplate>
+        <button class="mx-4" mat-raised-button color="primary" [disabled]="!selectedDevice" (click)="onScanReset()">Reset</button>
+    </ng-template>
 </div>
 
 <mat-form-field *ngIf="availableDevices" class="centering-container">

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { QrJwt } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,16 @@ export class QrService {
 
   constructor() { }
 
-  validateQRPayload(): boolean {
+  validateQrJwtString(): boolean {
     return true;
   }
 
-  extractQRPayload() {
-    
+  parseQrJwt(): QrJwt {
+
+  }
+
+  storeQRJwt(token: string): boolean {
+
   }
 
 
