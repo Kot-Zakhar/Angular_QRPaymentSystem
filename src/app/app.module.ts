@@ -18,6 +18,8 @@ import {
   LoginComponent,
   DataComponent,
   QrComponent,
+  MyQrsComponent,
+  NotFoundComponent
 } from './pages';
 
 import {
@@ -44,10 +46,14 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
+    // pages
     HomeComponent,
     LoginComponent,
     DataComponent,
     QrComponent,
+    MyQrsComponent,
+    NotFoundComponent,
+    // components
     NavigationComponent,
     QrScannerComponent,
     QrViewerComponent,
@@ -58,7 +64,7 @@ import {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-
+    // material modules
     MatSliderModule,
     MatToolbarModule,
     MatButtonModule,
@@ -80,12 +86,14 @@ import {
         canActivateChild: [LoginGuard],
         children: [
           { path: 'data', component: DataComponent },
-          { path: 'qr', component: QrComponent }
+          { path: 'scan', component: QrComponent },
+          { path: 'myqrs', component: MyQrsComponent },
         ]
       },
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent },
-      { path: '**', redirectTo: '' }
+      { path: 'not-found/:notFoundPath', component: NotFoundComponent },
+      { path: ':notFoundPath', redirectTo: 'not-found/:notFoundPath' }
     ])
   ],
   providers: [

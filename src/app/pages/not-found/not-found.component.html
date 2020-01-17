@@ -1,0 +1,9 @@
+<mat-card color="secondary">
+    <mat-card-title>
+        <h1>404 - Not found</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <p *ngIf="notFoundPath">Sorry, {{ notFoundPath }} page is not found.</p>
+        <p *ngIf="!notFoundPath">Not found</p>
+    </mat-card-content>
+</mat-card>
