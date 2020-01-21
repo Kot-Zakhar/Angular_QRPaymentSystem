@@ -17,7 +17,7 @@ export class TransactionViewerComponent implements OnInit {
   transaction: Transaction;
   transactionId: string;
   returnPath = routes.mytransactions;
-    private log = debug('app-transaction-viewer');
+  private log = debug('app-transaction-viewer');
 
   fieldsToView = [
     {

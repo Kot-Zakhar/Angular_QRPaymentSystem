@@ -10,9 +10,9 @@
         </ng-template>
     </div>
     <div class="paddings qr-scanner__device-select_width_60">
-        <mat-form-field *ngIf="availableDevices">
+        <mat-form-field *ngIf="availableDevices && availableDevices.length > 1">
             <mat-label>Video devices</mat-label>
-            <mat-select [(ngModel)]="selectedDevice">
+            <mat-select [(ngModel)]="selectedDevice" (selectionChange)="onDeviceChange($event)">
                 <mat-option *ngFor="let device of availableDevices" [value]="device">
                     {{ device.label }}
                 </mat-option>
