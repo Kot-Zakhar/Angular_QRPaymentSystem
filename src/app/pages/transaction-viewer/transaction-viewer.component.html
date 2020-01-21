@@ -7,9 +7,17 @@
     <mat-card-content>
         <ng-container class="transaction-description_flex-direction_column transaction-description_width_stretch">
             <div *ngFor="let field of fieldsToView">
-                <mat-form-field *ngIf="transaction.description[field.key]" class="transaction-description__field_width_100">
-                    <input readonly matInput [value]="transaction.description[field.key]" [placeholder]="field.placeholder">
-                </mat-form-field>
+                <div *ngIf="transaction.description[field.key]">
+                    <mat-form-field class="transaction-description__field_width_100">
+                        <input 
+                            readonly
+                            matInput
+                            [value]="field.type=='date' ? (transaction.description[field.key] | date: 'short') : (transaction.description[field.key])"
+                            [placeholder]="field.placeholder"
+                        >
+                    </mat-form-field>
+
+                </div>
             </div>
         </ng-container>
     </mat-card-content>
