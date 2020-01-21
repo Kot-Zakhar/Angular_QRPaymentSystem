@@ -21,13 +21,11 @@ export class MyTransactionsComponent implements OnInit {
     // 'from',
     // 'to',
     'amount',
-    'currency',
     'notBeforeDate',
     'expirationDate',
-    'more',
-    'validated',
     'completed',
-    'update'
+    'update',
+    'more',
   ];
 
   constructor(
@@ -53,15 +51,4 @@ export class MyTransactionsComponent implements OnInit {
     });
   }
 
-  onComplete(transaction: Transaction) {
-    let message: string;
-    if (this.transactionService.executeTransaction(transaction.id)) {
-      message = 'Transaction executed successfully.';
-    } else {
-      message = 'Transaction execution failed.';
-    }
-    this.snackBar.open(message, 'Ok', {
-      duration: env.snackDurationInMs
-    });
-  }
 }

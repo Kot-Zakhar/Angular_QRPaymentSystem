@@ -1,3 +1,19 @@
+.transaction-description_flex-direction_column {
+    display: flex;
+    flex-direction: column;
+}
 .transaction-description_width_stretch {
     align-items: stretch;
+}
+.transaction-description__field_width_100 {
+    width: 100%;
+}
+
+.card-actions_justify_space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.spinner_position_center {
+    margin: auto;
 }

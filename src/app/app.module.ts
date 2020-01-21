@@ -43,7 +43,10 @@ import {
   MatSelectModule,
   MatIconModule,
   MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
+  MatTooltipModule,
+  MatDividerModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -81,7 +84,10 @@ import { AppRoutingModule } from './app-routing.module';
     MatIconModule,
     MatSnackBarModule,
     AppRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     // helpers

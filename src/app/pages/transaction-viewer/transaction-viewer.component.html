@@ -1,15 +1,25 @@
-<div class="container container_align_center container_flex-direction_column transaction-description_width_stretch">
-    <h1>{{ transactionId }}</h1>
-    <ng-container *ngIf="transaction; else elseTemplate">
-        <div *ngFor="let field of fieldsToView">
-            {{ transaction[field.key] }}
-            <mat-form-field *ngIf="transaction[field.key]">
-                <input readonly matInput [value]="transaction[field.key]" [placeholder]="field.placeholder">
-            </mat-form-field>
-        </div>
-    </ng-container>
-    <ng-template #elseTemplate>
-        <p>No transaction available</p>
-    </ng-template>
-    
-</div>
+<mat-spinner *ngIf="!transaction" class="spinner_position_center"></mat-spinner>
+<mat-card *ngIf="transaction">
+    <mat-card-header>
+        <mat-card-title>Transaction info</mat-card-title>
+        <mat-card-subtitle>{{ transactionId }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <ng-container class="transaction-description_flex-direction_column transaction-description_width_stretch">
+            <div *ngFor="let field of fieldsToView">
+                <mat-form-field *ngIf="transaction.description[field.key]" class="transaction-description__field_width_100">
+                    <input readonly matInput [value]="transaction.description[field.key]" [placeholder]="field.placeholder">
+                </mat-form-field>
+            </div>
+        </ng-container>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="card-actions_justify_space-between">
+        <button mat-icon-button color="primary" aria-label="Back" [routerLink]="['/', returnPath]">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button *ngIf="!transaction.completed" mat-icon-button color="accent" matTooltip="Click to complete" aria-label="Complete" (click)="onComplete(transaction)">
+            <mat-icon>payment</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>
