@@ -1,0 +1,92 @@
+<ng-container *ngIf="transactions.length > 0; else noTransactionsTamplate">
+    <table mat-table [dataSource]="transactions" class="transaction-table_width_100">
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> index </th>
+          <td mat-cell *matCellDef="let index = index" class="cell_text-align_center"> {{index + 1}} </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Id </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="creationDate">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Created </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.creationDate | date: 'short'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="creator">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Creator </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.creatorId }} </td>
+        </ng-container>
+        <ng-container matColumnDef="from">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> From </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.from}} </td>
+        </ng-container>
+        <ng-container matColumnDef="to">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> To </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.to}} </td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Amount </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.amount}} </td>
+        </ng-container>
+        <ng-container matColumnDef="currency">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Currency </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.currency}} </td>
+        </ng-container>
+        <ng-container matColumnDef="notBeforeDate">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Activates </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.notBeforeDate | date: 'short'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="expirationDate">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Expires </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> {{transaction.description.expirationDate | date: 'short'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="validated">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Validated </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> 
+                <ng-container *ngIf="transaction.validated; else transactionNotValidatedTemplate">
+                    <mat-icon color="primary">check_circle_outline</mat-icon>
+                </ng-container>
+                <ng-template #transactionNotValidatedTemplate>
+                    <mat-icon color="warn">highlight_off</mat-icon>
+                </ng-template>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="completed">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Completed </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center">
+                <ng-container *ngIf="transaction.completed; else transactionNotCompletedTemplate">
+                    <mat-icon color="primary">done</mat-icon>
+                </ng-container>
+                <ng-template #transactionNotCompletedTemplate>
+                    <button mat-icon-button color="accent" aria-label="Complete" (click)="onComplete(transaction)">
+                        <mat-icon>payment</mat-icon>
+                    </button>
+                </ng-template>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="update">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> Update </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center"> 
+                <button mat-icon-button color="accent" aria-label="Update" (click)="onTransactionUpdate(transaction)">
+                    <mat-icon>autorenew</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="more">
+            <th mat-header-cell *matHeaderCellDef class="cell_text-align_center"> More </th>
+            <td mat-cell *matCellDef="let transaction" class="cell_text-align_center">
+                <button mat-icon-button color="accent" aria-label="Show more" [routerLink]="['/', transactionViewerPath, transaction.id]">
+                    <mat-icon>description</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        
+    </table>
+    
+</ng-container>
+<ng-template #noTransactionsTamplate>
+    <p>No transactions available yet.</p>
+</ng-template>

@@ -1,31 +1,6 @@
-<div class="centering-container mb-40">
-    <ng-container *ngIf="scannerHidden; else scannerNotHiddenTemplate">
-        <button class="mx-4" mat-raised-button color="accent" [disabled]="videoDeviceNotFound" (click)="onScan()">Scan</button>
-        <!-- <button class="mx-4" mat-raised-button aria-label="Open image" color="accent" (click)="onLoadImage()"><mat-icon>folder_open</mat-icon></button> -->
-    </ng-container>
-    <ng-template #scannerNotHiddenTemplate>
-        <button class="mx-4" mat-raised-button color="primary" [disabled]="!selectedDevice" (click)="onScanReset()">Reset</button>
-    </ng-template>
-</div>
-
-<mat-form-field *ngIf="availableDevices" class="centering-container">
-    <mat-label>Video devices</mat-label>
-    <mat-select [(ngModel)]="selectedDevice">
-        <mat-option *ngFor="let device of availableDevices" [value]="device">
-            {{ device.label }}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-
-<div class="centering-container">
-    <video
-        [hidden]="scannerHidden"
-        id="video"
-        class="scanner-window"
-    ></video>
-</div>
-<div class="viewer-window">
-    <mat-form-field>
-        <textarea matInput placeholder="Payload" readonly [(ngModel)]="payload"></textarea>
-    </mat-form-field>
+<app-qr-scanner
+    (scannedEvent)="onScanned($event)"
+></app-qr-scanner>
+<div *ngIf="qrJwt">
+    <app-transaction-viewer [transaction]="transaction"></app-transaction-viewer>
 </div>

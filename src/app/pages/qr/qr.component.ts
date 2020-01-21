@@ -1,5 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BrowserQRCodeReader, VideoInputDevice } from '@zxing/library';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+
+import { QrJwt, Transaction } from 'src/app/models';
+import { QrJwtService, TransactionService } from 'src/app/services';
+import { routes, environment as env } from 'src/environments/environment';
+import { debug } from 'debug';
 
 @Component({
   selector: 'app-qr',
@@ -7,69 +13,32 @@ import { BrowserQRCodeReader, VideoInputDevice } from '@zxing/library';
   styleUrls: ['./qr.component.css']
 })
 export class QrComponent implements OnInit {
-  // @ViewChild('#scanner', { static: false })
-  scanner: BrowserQRCodeReader;
-  selectedDevice: VideoInputDevice;
-  availableDevices: VideoInputDevice[];
+  qrJwt: QrJwt;
+  transaction: Transaction;
+  private log = debug('app-qr-component');
 
-  videoDeviceNotFound = false;
-  scannerHidden = true;
-  payload = '';
-  checked = false;
+  constructor(
+    private snackBar: MatSnackBar,
+    private qrJwtService: QrJwtService,
+    private transactionService: TransactionService,
+    private router: Router
+  ) {}
 
-  constructor() {
-    this.scanner = new BrowserQRCodeReader();
-    console.log('Scanner initialized: ', this.scanner);
-  }
+  ngOnInit() {}
 
-  ngOnInit() {
-    this.scanner.getVideoInputDevices()
-      .then((videoInputDevices: VideoInputDevice[]) => {
-        if (videoInputDevices.length > 0) {
-          this.availableDevices = videoInputDevices;
-          this.selectedDevice = videoInputDevices[0];
-          console.info('Video devices found.', videoInputDevices);
-          this.videoDeviceNotFound = false;
-        } else {
-          this.availableDevices = null;
-          this.selectedDevice = null;
-          console.error('Video device not found.');
-          this.videoDeviceNotFound = true;
-        }
-      })
-      .catch(error => {
-        console.error(error);
+  onScanned(jwtString: string) {
+    this.log(jwtString);
+
+    this.qrJwt = this.qrJwtService.parseQrJwtString(jwtString);
+    if (this.qrJwt) {
+      this.transaction = new Transaction(this.qrJwt, jwtString);
+      this.transactionService.latestScannedTransaction.next(this.transaction);
+      this.router.navigate([routes.transactionViewer, this.transaction.id]);
+    } else {
+      this.snackBar.open('Invalid QR code.', 'Dismiss', {
+        duration: env.snackDurationInMs
       });
-  }
-
-  onScan() {
-    console.log('Scan initiated');
-    if (!this.selectedDevice) {
-      alert("No video device available or selected.");
-      return;
+      this.transactionService.latestScannedTransaction.next(null);
     }
-    this.scannerHidden = false;
-    this.scanner.decodeFromInputVideoDevice(this.selectedDevice.deviceId, 'video')
-      .then(result => {
-        console.log(result.getText());
-        this.payload = result.getText();
-        this.scannerHidden = true;
-        this.scanner.reset();
-      })
-      .catch(error => {
-        console.error(error);
-        this.payload = '';
-      });
   }
-
-  onScanReset() {
-    console.log('Scan reset initiated');
-    this.scanner.reset();
-    this.payload = '';
-    this.scannerHidden = true;
-  }
-
-  // onLoadImage() {
-
-  // }
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QrViewerComponent } from './qr-viewer.component';
+import { TransactionViewerComponent } from './transaction-viewer.component';
 
-describe('QrViewerComponent', () => {
-  let component: QrViewerComponent;
-  let fixture: ComponentFixture<QrViewerComponent>;
+describe('TransactionViewerComponent', () => {
+  let component: TransactionViewerComponent;
+  let fixture: ComponentFixture<TransactionViewerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QrViewerComponent ]
+      declarations: [ TransactionViewerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QrViewerComponent);
+    fixture = TestBed.createComponent(TransactionViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

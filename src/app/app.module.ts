@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,8 +8,7 @@ import { AppComponent } from './app.component';
 
 import {
   NavigationComponent,
-  QrScannerComponent,
-  QrViewerComponent
+  QrScannerComponent
 } from './components';
 
 import {
@@ -18,8 +16,9 @@ import {
   LoginComponent,
   DataComponent,
   QrComponent,
-  MyQrsComponent,
-  NotFoundComponent
+  MyTransactionsComponent,
+  NotFoundComponent,
+  TransactionViewerComponent
 } from './pages';
 
 import {
@@ -28,7 +27,9 @@ import {
 } from './helpers';
 
 import {
-  AuthService
+  AuthService,
+  QrJwtService,
+  TransactionService
 } from './services';
 
 import {
@@ -40,8 +41,12 @@ import {
   MatInputModule,
   MatSlideToggleModule,
   MatSelectModule,
-  MatIconModule
+  MatIconModule,
+  MatSnackBarModule,
+  MatTableModule
 } from '@angular/material';
+
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -51,12 +56,12 @@ import {
     LoginComponent,
     DataComponent,
     QrComponent,
-    MyQrsComponent,
+    MyTransactionsComponent,
     NotFoundComponent,
     // components
     NavigationComponent,
     QrScannerComponent,
-    QrViewerComponent,
+    TransactionViewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,32 +79,19 @@ import {
     MatSlideToggleModule,
     MatSelectModule,
     MatIconModule,
-
-    RouterModule.forRoot([
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
-        path: '',
-        canActivateChild: [LoginGuard],
-        children: [
-          { path: 'data', component: DataComponent },
-          { path: 'scan', component: QrComponent },
-          { path: 'myqrs', component: MyQrsComponent },
-        ]
-      },
-      { path: 'home', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'not-found/:notFoundPath', component: NotFoundComponent },
-      { path: ':notFoundPath', redirectTo: 'not-found/:notFoundPath' }
-    ])
+    MatSnackBarModule,
+    AppRoutingModule,
+    MatTableModule
   ],
   providers: [
+    // helpers
     LoginGuard,
     FakeBackendProvider,
+
+    // services
     AuthService,
+    QrJwtService,
+    TransactionService
   ],
   bootstrap: [AppComponent]
 })

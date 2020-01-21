@@ -1,0 +1,11 @@
+.scanner-window {
+    width: 60%;
+}
+
+.qr-scanner__device-select_width_60 {
+    width: 60%;
+}
+
+.qr-scanner__device-select_width_60 > * {
+    width: 100%;
+}

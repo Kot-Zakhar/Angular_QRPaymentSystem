@@ -5,11 +5,16 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.centering-container {
-    display: flex;
-    justify-content: center;
-}
-
 .container {
     padding: 2vh 3vw;
+}
+
+.container_align_center {
+    display: flex;
+    align-items: center;
+}
+
+.container_flex-direction_column {
+    display: flex;
+    flex-direction: column;
 }

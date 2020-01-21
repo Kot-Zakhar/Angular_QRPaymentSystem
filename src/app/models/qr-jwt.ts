@@ -1,14 +1,16 @@
-import { QrJwtHeader } from 'src/app/models/qr-jwt-header';
-import { QrJwtPayload } from 'src/app/models/qr-jwt-payload';
+export interface QrJwt {
 
-export class QrJwt {
-    private token: string;
+    jti: string;
+    iat: number;
+    iss: string;
 
-    constructor(qrJwtToken: string) {
-        this.token = qrJwtToken;
-    }
-
-    public header: QrJwtHeader;
-    public payload: QrJwtPayload;
-    public signature: string;
+    sub?: string;
+    aud?: string;
+    amt?: number;
+    cur?: string; // smth lke "RUB" | "USD" | "EUR" | "BLR"
+    exp?: number;
+    nbf?: number;
+    qty?: number;
+    // fiban: string;
+    // tiban: string;
 }

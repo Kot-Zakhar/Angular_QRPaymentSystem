@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  snackDurationInMs: 2000
+};
+
+export const routes = {
+  root: '',
+  data: 'data',
+  scan: 'scan',
+  mytransactions: 'mytransactions',
+  transactionViewer: 'transaction',
+  home: 'home',
+  login: 'login',
+  notfound: 'notfound'
 };
 
 /*

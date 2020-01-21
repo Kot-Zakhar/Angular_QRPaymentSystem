@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-    <button mat-button class='paddings' routerLink="/">Home</button>
+    <button mat-button class='paddings' [routerLink]="routes.home">Home</button>
     <!-- <button mat-button class='paddings' routerLink="/data">Data</button> -->
-    <button mat-button class='paddings' routerLink="/scan" *ngIf="currentUser">Scan</button>
-    <button mat-button class='paddings' routerLink="/myqrs" *ngIf="currentUser">My QRs</button>
+    <button mat-button class='paddings' [routerLink]="routes.scan" *ngIf="currentUser">Scan</button>
+    <button mat-button class='paddings' [routerLink]="routes.mytransactions" *ngIf="currentUser">My transactions</button>
     <span class="spacer"></span>
-    <button mat-button class='paddings' routerLink="/login" *ngIf="!currentUser">Login</button>
+    <button mat-button class='paddings' [routerLink]="routes.login" *ngIf="!currentUser">Login</button>
     <button mat-button class='paddings' (click)="logout()" *ngIf="currentUser">Logout</button>
 </mat-toolbar>
