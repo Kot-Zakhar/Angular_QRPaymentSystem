@@ -12,7 +12,7 @@ export class TransactionDescription {
         this.currency = token.cur;
         this.expirationDate = token.exp ? new Date(token.exp * 1000) : undefined;
         this.notBeforeDate = token.nbf ? new Date(token.nbf * 1000) : undefined;
-        this.quantity = token.qty ? new Date(token.qty * 1000) : undefined;
+        this.quantity = token.qty;
     }
     id: string;
     creationDate: Date;
@@ -21,8 +21,8 @@ export class TransactionDescription {
     from?: string;
     to?: string;
     amount?: number;
-    currency?: string; // smth lke "RUB" | "USD" | "EUR" | "BLR"
+    currency?: string;
     expirationDate?: Date;
     notBeforeDate?: Date;
-    quantity?: Date;
+    quantity?: number;
 }

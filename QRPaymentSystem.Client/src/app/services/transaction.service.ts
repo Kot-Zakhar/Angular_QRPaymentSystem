@@ -73,7 +73,7 @@ export class TransactionService {
   }
 
   executeTransaction(transactionId: string): boolean {
-    let transaction = this.getById(transactionId);
+    const transaction = this.getById(transactionId);
     if (transaction) {
       transaction.completed = true;
     }
@@ -81,7 +81,7 @@ export class TransactionService {
   }
 
   validateTransaction(transactionId: string): boolean {
-    let transaction = this.getById(transactionId);
+    const transaction = this.getById(transactionId);
     if (transaction) {
       transaction.validated = true;
     }
