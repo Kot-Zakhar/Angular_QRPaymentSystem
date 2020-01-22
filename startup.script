@@ -1,0 +1,6 @@
+#!/bin/bash
+
+start ./QRPaymentSystem.Server/QRPaymentSystem.Server.sln
+cd ./QrPaymentSystem.Client/
+code .
+npm start
