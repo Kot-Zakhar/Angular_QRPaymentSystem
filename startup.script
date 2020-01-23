@@ -3,5 +3,4 @@
 start ./QRPaymentSystem.Server/QRPaymentSystem.Server.sln
 cd ./QrPaymentSystem.Client/
 code .
-start https://localhost:4200
 npm start
