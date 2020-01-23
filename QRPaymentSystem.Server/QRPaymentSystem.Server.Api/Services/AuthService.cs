@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace QRPaymentSystem.Server.Api.Services
 {
-    public class JwtService
+    public class AuthService
     {
+
     }
 }

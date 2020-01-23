@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace QRPaymentSystem.Server.Api.Models
+namespace QRPaymentSystem.Server.Api.Models.DbModels
 {
     public class IdentityProfile : IdentityUser
     { 
@@ -20,6 +17,8 @@ namespace QRPaymentSystem.Server.Api.Models
         public string LastName { get; set; }
         public DateTime? Birthday { get; set; }
 
-        public IList<Asset> Assets { get; set; }
+        public virtual IList<Asset> Assets { get; set; }
+        public virtual IList<Scan> Scans { get; set; }
+        public virtual IList<TransactionInfo> CreatedTransactionInfos { get; set; }
     }
 }

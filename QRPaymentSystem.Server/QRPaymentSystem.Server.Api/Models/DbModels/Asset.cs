@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QRPaymentSystem.Server.Api.Models
+namespace QRPaymentSystem.Server.Api.Models.DbModels
 {
     public class Asset : Entity
     {
@@ -18,6 +17,12 @@ namespace QRPaymentSystem.Server.Api.Models
         [ForeignKey("OwnerId")]
         public IdentityProfile Owner { get; set; }
 
-        public IList<Transaction> Transactions { get; set; }
+        [MaxLength(34)]
+        public string IBAN { get; set; }
+
+        public string Currency { get; set; }
+
+        public virtual IList<Transaction> Transactions { get; set; }
+        public virtual IList<TransactionInfo> TransactionInfos { get; set; }
     }
 }

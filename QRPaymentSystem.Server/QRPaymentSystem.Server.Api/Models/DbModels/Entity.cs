@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace QRPaymentSystem.Server.Api.Models
+namespace QRPaymentSystem.Server.Api.Models.DbModels
 {
     public class Entity
     {
