@@ -18,13 +18,17 @@ import {
   QrComponent,
   MyTransactionsComponent,
   NotFoundComponent,
-  TransactionViewerComponent
+  TransactionViewerComponent,
+  RegisterComponent
 } from './pages';
 
 import {
   LoginGuard,
-  FakeBackendProvider
 } from './helpers';
+
+import {
+  interceptorProviders
+} from './interceptors';
 
 import {
   AuthService,
@@ -65,6 +69,7 @@ import { AppRoutingModule } from './app-routing.module';
     NavigationComponent,
     QrScannerComponent,
     TransactionViewerComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +97,7 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     // helpers
     LoginGuard,
-    FakeBackendProvider,
+    interceptorProviders,
 
     // services
     AuthService,

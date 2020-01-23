@@ -15,6 +15,7 @@ export const routes = {
   transactionViewer: 'transaction',
   home: 'home',
   login: 'login',
+  register: 'register',
   notfound: 'notfound'
 };
 

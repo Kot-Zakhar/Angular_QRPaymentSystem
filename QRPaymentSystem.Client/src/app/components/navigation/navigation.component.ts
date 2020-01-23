@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
-    this.authService.currentUser.subscribe(u => this.currentUser = u);
+    this.authService.currentUserObservable.subscribe(u => this.currentUser = u);
   }
 
   logout() {

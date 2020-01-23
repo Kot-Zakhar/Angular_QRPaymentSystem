@@ -9,7 +9,8 @@ import {
   QrComponent,
   MyTransactionsComponent,
   NotFoundComponent,
-  TransactionViewerComponent
+  TransactionViewerComponent,
+  RegisterComponent
 } from './pages';
 
 import {
@@ -37,6 +38,7 @@ import {
       },
       { path: routes.home, component: HomeComponent },
       { path: routes.login, component: LoginComponent },
+      { path: routes.register, component: RegisterComponent },
       { path: routes.notfound + '/:notFoundPath', component: NotFoundComponent },
       { path: ':notFoundPath', redirectTo: routes.notfound + '/:notFoundPath' }
     ])

@@ -45,14 +45,15 @@ namespace QRPaymentSystem.Server.Api
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    //ValidateIssuer = true,
-                    //ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
+                    RequireSignedTokens = true,
 
-                    //ValidIssuer = "https://localhost:4200",
-                    //ValidAudience = "https://localhost:5001",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey#234@"))
+                    ValidIssuer = "https://localhost:5001",
+                    //ValidAudience = "https://localhost:4200",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("SecretJwtKey"))),
                 };
             });
 
@@ -69,7 +70,7 @@ namespace QRPaymentSystem.Server.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

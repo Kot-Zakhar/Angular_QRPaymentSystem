@@ -1,32 +1,58 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { debug } from 'debug';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
+import { RegisterViewModel as RegisterModel } from '../models/viewModels/registerViewModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUserObservable: Observable<any>;
+  private log = debug('app-auth-service');
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserObservable = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue() {
+  private setCurrentUser(user: User) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
+  get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string) {
-    console.log('login request.');
-    return this.http.post<any>('someApi/users/auth', { username, password })
+  get jwtAccessToken(): string {
+    return this.currentUserSubject.value.jwtAccessToken;
+  }
+
+  isUserLoggedIn(): boolean {
+    return !!this.currentUserSubject.value;
+  }
+
+  register(registerModel: RegisterModel): Observable<User> {
+    this.log('registration request.');
+    return this.http.post<User>('api/auth/register', registerModel)
       .pipe(map(user => {
-        console.log('login result: ', user);
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        this.log('registration result: ', user);
+        this.setCurrentUser(user);
+        return user;
+      }));
+  }
+
+  login(username: string, password: string): Observable<User> {
+    this.log('login request.');
+    return this.http.post<User>('api/auth/login', { username, password })
+      .pipe(map(user => {
+        this.log('login result: ', user);
+        this.setCurrentUser(user);
         return user;
       }));
   }
