@@ -60,6 +60,7 @@ namespace QRPaymentSystem.Server.Api
             services.AddControllers();
 
             services.AddScoped<AuthService>();
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

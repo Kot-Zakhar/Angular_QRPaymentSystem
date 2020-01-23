@@ -21,7 +21,7 @@ namespace QRPaymentSystem.Server.Api.Services
             _configuration = configuration;
         }
 
-        public IdentityProfile FindUser(LoginModel userCredentials)
+        public IdentityProfile Find(LoginModel userCredentials)
         {
             if (userCredentials.Username == "test" && userCredentials.Password == "test")
                 return new IdentityProfile("test")
@@ -33,7 +33,7 @@ namespace QRPaymentSystem.Server.Api.Services
             return null;
         }
 
-        public string Authorize(IdentityProfile user)
+        public AuthorizationResult Authorize(IdentityProfile user)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretJwtKey")));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -49,7 +49,19 @@ namespace QRPaymentSystem.Server.Api.Services
                 signingCredentials: signinCredentials
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+            var result = new AuthorizationResult
+            {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(tokeOptions)
+            };
+
+            return result;
+        }
+
+        // todo: username and password validation
+        public bool AreCredentialsValid(LoginModel userCredentials)
+        {
+            // validation of username and password
+            return userCredentials != null;
         }
     }
 }

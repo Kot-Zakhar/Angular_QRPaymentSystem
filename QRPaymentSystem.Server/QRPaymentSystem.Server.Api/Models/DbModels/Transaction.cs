@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using QRPaymentSystem.Server.Api.Models.Enums;
 
@@ -15,9 +16,11 @@ namespace QRPaymentSystem.Server.Api.Models.DbModels
         [ForeignKey("TransactionInfoId")]
         public virtual TransactionInfo TransactionInfo { get; set; }
         
+        [Required]
         [ForeignKey("FromAssetId")]
         public virtual Asset FromAsset { get; set; }
 
+        [Required]
         [ForeignKey("ToAssetId")]
         public virtual Asset ToAsset { get; set; }
 

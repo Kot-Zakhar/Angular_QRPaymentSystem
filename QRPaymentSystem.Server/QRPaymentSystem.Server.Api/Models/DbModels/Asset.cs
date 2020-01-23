@@ -15,14 +15,16 @@ namespace QRPaymentSystem.Server.Api.Models.DbModels
 
         [Required]
         [ForeignKey("OwnerId")]
-        public IdentityProfile Owner { get; set; }
+        public virtual IdentityProfile Owner { get; set; }
 
         [MaxLength(34)]
         public string IBAN { get; set; }
 
         public string Currency { get; set; }
 
-        public virtual IList<Transaction> Transactions { get; set; }
-        public virtual IList<TransactionInfo> TransactionInfos { get; set; }
+        public virtual IList<Transaction> FromAssetTransactions { get; set; }
+        public virtual IList<Transaction> ToAssetTransactions { get; set; }
+        public virtual IList<TransactionInfo> FromAssetTransactionInfos { get; set; }
+        public virtual IList<TransactionInfo> ToAssetTransactionInfos { get; set; }
     }
 }
