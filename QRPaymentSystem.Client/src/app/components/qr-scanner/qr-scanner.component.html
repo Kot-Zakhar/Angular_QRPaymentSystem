@@ -1,10 +1,10 @@
-<div class="container container_align_center container_flex-direction_column">
+<div class="container container_align_center container_flex-direction_column" [hidden]="">
     <div class="paddings">
         <ng-container *ngIf="scannerHidden; else scannerNotHiddenTemplate">
             <button class="mx-4" mat-raised-button color="accent" [disabled]="videoDeviceNotFound" (click)="onScan()">Scan</button>
             <!-- <button class="mx-4" mat-raised-button aria-label="Open image" color="accent" (click)="onLoadImage()"><mat-icon>folder_open</mat-icon></button> -->
         </ng-container>
-    
+
         <ng-template #scannerNotHiddenTemplate>
             <button class="mx-4" mat-raised-button color="primary" [disabled]="!selectedDevice" (click)="onScanReset()">Reset</button>
         </ng-template>
@@ -20,9 +20,5 @@
         </mat-form-field>
     </div>
 
-    <video
-        [hidden]="scannerHidden"
-        id="video"
-        class="scanner-window"
-    ></video>
+    <video [hidden]="scannerHidden" id="video" class="scanner-window"></video>
 </div>

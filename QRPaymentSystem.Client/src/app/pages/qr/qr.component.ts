@@ -13,8 +13,10 @@ import { debug } from 'debug';
   styleUrls: ['./qr.component.css']
 })
 export class QrComponent implements OnInit {
+  scannerNotAvailable = false;
   qrJwt: QrJwt;
   transaction: Transaction;
+  rawJwt = '';
   private log = debug('app-qr-component');
 
   constructor(
@@ -35,10 +37,14 @@ export class QrComponent implements OnInit {
       this.transactionService.latestScannedTransaction.next(this.transaction);
       this.router.navigate([routes.transactionViewer, this.transaction.id]);
     } else {
-      this.snackBar.open('Invalid QR code.', 'Dismiss', {
+      this.snackBar.open('Invalid code.', 'Dismiss', {
         duration: env.snackDurationInMs
       });
       this.transactionService.latestScannedTransaction.next(null);
     }
+  }
+
+  onVideoDeviceNotFound() {
+    this.scannerNotAvailable = true;
   }
 }

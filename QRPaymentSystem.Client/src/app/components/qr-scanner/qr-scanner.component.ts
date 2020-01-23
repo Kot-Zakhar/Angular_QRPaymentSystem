@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BrowserQRCodeReader, VideoInputDevice } from '@zxing/library';
 import { debug } from 'debug';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-qr-scanner',
@@ -13,6 +14,8 @@ export class QrScannerComponent implements OnInit {
   @Output()
   scanningErrorEvent = new EventEmitter<Error>();
   @Output()
+  videoDeviceNotFoundEvent = new EventEmitter<void>();
+  @Output()
   resetEvent = new EventEmitter<void>();
 
   private log = debug('app-qr-scanner');
@@ -23,27 +26,26 @@ export class QrScannerComponent implements OnInit {
   selectedDevice: VideoInputDevice;
   availableDevices: VideoInputDevice[];
 
-  videoDeviceNotFound = false;
   scannerHidden = true;
   checked = false;
 
   constructor() {
     this.scanner = new BrowserQRCodeReader();
-    this.log('Scanner initialized: ', this.scanner);
+    this.log('Scanner contructed: ', this.scanner);
   }
 
   ngOnInit() {
+    this.log('Scanner initialized: ', this.scanner);
     this.scanner.getVideoInputDevices()
       .then((videoInputDevices: VideoInputDevice[]) => {
         if (videoInputDevices.length > 0) {
           this.availableDevices = videoInputDevices;
           this.selectedDevice = videoInputDevices[0];
-          this.videoDeviceNotFound = false;
         } else {
           this.availableDevices = null;
           this.selectedDevice = null;
           this.log('Video device not found.');
-          this.videoDeviceNotFound = true;
+          this.videoDeviceNotFoundEvent.emit();
         }
       })
       .catch(error => {

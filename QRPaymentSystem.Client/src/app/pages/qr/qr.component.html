@@ -1,6 +1,7 @@
-<app-qr-scanner
-    (scannedEvent)="onScanned($event)"
-></app-qr-scanner>
-<div *ngIf="qrJwt">
-    <app-transaction-viewer [transaction]="transaction"></app-transaction-viewer>
+<app-qr-scanner [hidden]="scannerNotAvailable" (scannedEvent)="onScanned($event)" (videoDeviceNotFoundEvent)="onVideoDeviceNotFound()"></app-qr-scanner>
+<div class="raw-jwt-field">
+    <mat-form-field class="raw-jwt-field_grow_1 mr-4">
+        <input matInput placeholder="Raw code from qr" [(ngModel)]="rawJwt">
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="!rawJwt" (click)="onScanned(rawJwt)">Submit</button>
 </div>

@@ -3,12 +3,21 @@
     margin-right: 16px;
 }
 
-.mb-40 {
-    margin-bottom: 40px;
+.mr-4 {
+    margin-right: 16px;
 }
 
 .viewer-window {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+}
+
+.raw-jwt-field {
+    display: flex;
+    align-items: center;
+}
+
+.raw-jwt-field_grow_1 {
+    flex-grow: 1;
 }
