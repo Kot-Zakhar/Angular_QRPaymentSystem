@@ -10,7 +10,7 @@ using QRPaymentSystem.Server.Api.Data;
 namespace QRPaymentSystem.Server.Api.Migrations
 {
     [DbContext(typeof(QRPaymentSystemDbContext))]
-    [Migration("20200123171221_InitDB")]
+    [Migration("20200124130256_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -443,13 +443,13 @@ namespace QRPaymentSystem.Server.Api.Migrations
                     b.HasOne("QRPaymentSystem.Server.Api.Models.DbModels.Asset", "FromAsset")
                         .WithMany("FromAssetTransactions")
                         .HasForeignKey("FromAssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("QRPaymentSystem.Server.Api.Models.DbModels.Asset", "ToAsset")
                         .WithMany("ToAssetTransactions")
                         .HasForeignKey("ToAssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("QRPaymentSystem.Server.Api.Models.DbModels.TransactionInfo", "TransactionInfo")

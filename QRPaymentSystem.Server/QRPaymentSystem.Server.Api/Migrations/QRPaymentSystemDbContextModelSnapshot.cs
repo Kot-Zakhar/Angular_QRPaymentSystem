@@ -441,13 +441,13 @@ namespace QRPaymentSystem.Server.Api.Migrations
                     b.HasOne("QRPaymentSystem.Server.Api.Models.DbModels.Asset", "FromAsset")
                         .WithMany("FromAssetTransactions")
                         .HasForeignKey("FromAssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("QRPaymentSystem.Server.Api.Models.DbModels.Asset", "ToAsset")
                         .WithMany("ToAssetTransactions")
                         .HasForeignKey("ToAssetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("QRPaymentSystem.Server.Api.Models.DbModels.TransactionInfo", "TransactionInfo")

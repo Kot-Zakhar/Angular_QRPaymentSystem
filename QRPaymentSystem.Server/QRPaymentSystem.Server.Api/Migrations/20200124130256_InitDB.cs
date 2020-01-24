@@ -262,14 +262,12 @@ namespace QRPaymentSystem.Server.Api.Migrations
                         name: "FK_Transactions_Assets_FromAssetId",
                         column: x => x.FromAssetId,
                         principalTable: "Assets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Transactions_Assets_ToAssetId",
                         column: x => x.ToAssetId,
                         principalTable: "Assets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Transactions_TransactionInfos_TransactionInfoId",
                         column: x => x.TransactionInfoId,

@@ -21,18 +21,6 @@ namespace QRPaymentSystem.Server.Api.Services
             _configuration = configuration;
         }
 
-        public IdentityProfile Find(LoginModel userCredentials)
-        {
-            if (userCredentials.Username == "test" && userCredentials.Password == "test")
-                return new IdentityProfile("test")
-                {
-                    PasswordHash = "test",
-                    Email = "test@mail.ru"
-                };
-
-            return null;
-        }
-
         public AuthorizationResult Authorize(IdentityProfile user)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretJwtKey")));

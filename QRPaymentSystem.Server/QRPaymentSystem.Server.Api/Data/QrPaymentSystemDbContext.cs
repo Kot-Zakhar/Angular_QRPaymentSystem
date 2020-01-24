@@ -29,11 +29,13 @@ namespace QRPaymentSystem.Server.Api.Data
             builder.Entity<Asset>()
                 .HasMany(a => a.FromAssetTransactions)
                 .WithOne(t => t.FromAsset)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Asset>()
                 .HasMany(a => a.ToAssetTransactions)
                 .WithOne(t => t.ToAsset)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Asset> Assets { get; set; }
