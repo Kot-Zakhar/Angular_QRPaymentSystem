@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using QRPaymentSystem.Server.Api.Data;
-using QRPaymentSystem.Server.Api.Models;
 using QRPaymentSystem.Server.Api.Models.DbModels;
 using QRPaymentSystem.Server.Api.Services;
 
@@ -18,9 +17,14 @@ namespace QRPaymentSystem.Server.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{Environment.MachineName.ToLower()}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -28,9 +32,8 @@ namespace QRPaymentSystem.Server.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<QRPaymentSystemDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentityCore<IdentityProfile>()
                 .AddUserManager<UserManager<IdentityProfile>>()
@@ -61,6 +64,7 @@ namespace QRPaymentSystem.Server.Api
 
             services.AddScoped<AuthService>();
             services.AddScoped<UserService>();
+            services.AddScoped<TransactionInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

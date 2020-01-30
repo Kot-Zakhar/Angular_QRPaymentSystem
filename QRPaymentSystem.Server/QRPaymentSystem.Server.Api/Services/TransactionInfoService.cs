@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using QRPaymentSystem.Server.Api.Models.DbModels;
 using Microsoft.IdentityModel.Tokens;
 
 namespace QRPaymentSystem.Server.Api.Services
@@ -19,50 +20,70 @@ namespace QRPaymentSystem.Server.Api.Services
         }
         private TokenValidationParameters GetValidationParameters()
         {
-            throw new NotImplementedException();
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretTransactionKey")));
+            return new TokenValidationParameters() {
+                IssuerSigningKey = secretKey,
+                RequireExpirationTime = false,
+                ValidateAudience = false,
+                ValidateIssuer = false
+            };
         }
 
-        public bool Validate(string encodedTransactionInfo)
-        {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretTransactionKey")));
-            var tokenHandler = new JwtSecurityTokenHandler();
-            if (!tokenHandler.CanReadToken(encodedTransactionInfo))
-                return false;
+        private async Task<TransactionInfo> TranslateTokenToTransactionInfo(SecurityToken transactionInfoToken) {
+            // TODO: there is gonna be fetching request, wich gets info about transaction (by id from transactionInfoToken)
+            return new TransactionInfo() {
+                Amount = 3,
+                Type = Models.Enums.TransactionInfoType.Transfer,
+                FromAsset = new Asset() {
+                    Currency = "EUR",
+                    Name = "From Asset Name",
+                    IBAN = "IBANFROM-123491283123474"
+                },
+                ToAsset = new Asset() {
+                    Currency = "USD",
+                    Name = "ToAssetName",
+                    IBAN = "IBANTO-1234676712394876"
+                },
+                ExpirationDate = DateTime.Now.AddDays(10),
+                NotBeforeDate = DateTime.Now.AddDays(5),
+                Creator = new IdentityProfile("Creator username"),
+                Status = Models.Enums.TransactionStatus.Created
+            };
+        }
 
-            SecurityToken decodedTransactionInfo;
+        public async Task<TransactionInfo> GetTransactionInfo(string encodedTransactionInfoToken)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            if (!tokenHandler.CanReadToken(encodedTransactionInfoToken))
+                return null;
+
+            SecurityToken decodedTransactionInfoToken;
             try
             {
-                var principal = tokenHandler.ValidateToken(encodedTransactionInfo, GetValidationParameters(), out decodedTransactionInfo);
-                return true;
+                System.Security.Claims.ClaimsPrincipal principal = tokenHandler.ValidateToken(encodedTransactionInfoToken, GetValidationParameters(), out decodedTransactionInfoToken);
+                TransactionInfo result = await TranslateTokenToTransactionInfo(decodedTransactionInfoToken);
+                return result;
             }
             catch (SecurityTokenException)
             {
-                return false;
+                throw new InvalidTransactionInfoException("Token is invalid");
+            }
+            catch (Exception ex){
+                // TODO: check for TokenToTransactionInfoException
+                throw new InvalidTransactionInfoException("Unknown exception", ex);
             }
         }
 
+        public string Encode(TransactionInfo transaction)
+        {
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretTransactionKey")));
+            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-        //public string GetToken()
-        //{
+            var tokenOptions = new JwtSecurityToken(
+                signingCredentials: signinCredentials
+            );
 
-        //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretJwtKey")));
-        //    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-
-        //    var tokeOptions = new JwtSecurityToken(
-        //        issuer: "https://localhost:5001",
-        //        audience: user.Id.ToString(),
-        //        claims: new List<Claim>
-        //        {
-        //            new Claim("claimType1", "value1")
-        //        },
-        //        expires: DateTime.Now.AddMinutes(5),
-        //        signingCredentials: signinCredentials
-        //    );
-
-        //    var result = new AuthorizationResult
-        //    {
-        //        AccessToken = new JwtSecurityTokenHandler().WriteToken(tokeOptions)
-        //    };
-        //}
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+        }
     }
 }

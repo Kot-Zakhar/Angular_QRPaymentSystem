@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using QRPaymentSystem.Server.Api.Services;
-using AuthorizationResult = QRPaymentSystem.Server.Api.Models.ApiModels.AuthorizationResult;
+using QRPaymentSystem.Server.Api.Models.ApiModels;
+using QRPaymentSystem.Server.Api.Models.DbModels;
+using System.Threading.Tasks;
 
 namespace QRPaymentSystem.Server.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TransactionInfoController : ControllerBase
     {
         private readonly TransactionInfoService _transactionInfoService;
@@ -22,20 +20,30 @@ namespace QRPaymentSystem.Server.Api.Controllers
             _transactionInfoService = transactionInfoService;
         }
 
-        [HttpGet("example"), Authorize]
+        [HttpGet("example")]
         public ActionResult<string> Get()
         {
-            return "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhODliNjIwMS03MWU4LTRjODItYjAyMy1jM2JhZDgxZGYwMzUiLCJhdWQiOiI3N2RlYjE1Yy0xMDhiLTQzNDAtYWYzNi03OThlOGJjY2Q3ODciLCJhbXQiOiIxIiwiY3VyIjoiRVUiLCJpYXQiOjE1MTYyMzkwMjIsImp0aSI6IjdhMzA1YWUyLTM0MDItNDExMy1hN2JhLWMyM2Q1ZGNkN2I5OSIsImlzcyI6ImE4OWI2MjAxLTcxZTgtNGM4Mi1iMDIzLWMzYmFkODFkZjAzNSIsInF0eSI6IjEwIn0.YRjcVq3ivNOvhqt0umfD5rXTTb7rETJXtL67m7r_eFl-ZhyEr7GZIn5Bzw3S3UgI5tVFGa5dKitp4glbLyKSng";
+            return _transactionInfoService.Encode(null);
         }
 
-        [HttpGet("validate"), Authorize]
-        public IActionResult Validate([FromBody] string token)
-        {
-            if (_transactionInfoService.Validate(token))
-                return Ok();
-            else
-                return StatusCode(406);// Not Acceptable
-        }
+        // [HttpPost("decode")]
+        // public ActionResult<FormField<object>> Decode([FromBody]string token) {
+        //     SecurityToken transactionInfo = _transactionInfoService.Decode(token);
+        //     return Ok(transactionInfo);
+        // }
 
+        [HttpGet("getform")]
+        public async Task<ActionResult<FormModel>> GetForm([FromQuery]string encodedTransaction) {
+            try
+            {
+                TransactionInfo transactionInfo = await _transactionInfoService.GetTransactionInfo(encodedTransaction);
+                return new FormModel(transactionInfo);
+            }
+            catch (InvalidTransactionInfoException ex)
+            {
+                return BadRequest(ex);
+            }
+
+        }
     }
 }

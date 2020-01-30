@@ -33,7 +33,7 @@ namespace QRPaymentSystem.Server.Api.Services
                 {
                     new Claim("claimType1", "value1")
                 },
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddDays(5),
                 signingCredentials: signinCredentials
             );
 
