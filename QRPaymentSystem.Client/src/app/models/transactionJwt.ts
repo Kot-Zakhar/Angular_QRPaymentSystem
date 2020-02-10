@@ -1,4 +1,4 @@
-export interface QrJwt {
+export interface TransactionJwt {
 
     jti: string;
     iat: number;

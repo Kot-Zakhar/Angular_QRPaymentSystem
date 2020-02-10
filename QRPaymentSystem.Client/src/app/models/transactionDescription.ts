@@ -1,7 +1,7 @@
-import { QrJwt } from './qr-jwt';
+import { TransactionJwt } from './transactionJwt';
 
 export class TransactionDescription {
-    constructor(token: QrJwt) {
+    constructor(token: TransactionJwt) {
         this.id = token.jti;
         this.creationDate = new Date(token.iat * 1000);
         this.creatorId = token.iss;

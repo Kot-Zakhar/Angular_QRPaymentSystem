@@ -11,11 +11,12 @@ namespace QRPaymentSystem.Server.Api.Models.DbModels
         [Required]
         public string Name { get; set; }
 
-        
-
         [Required]
         [ForeignKey("OwnerId")]
         public virtual IdentityProfile Owner { get; set; }
+
+        [Required]
+        public string Number { get; set; }
 
         [MaxLength(34)]
         public string IBAN { get; set; }

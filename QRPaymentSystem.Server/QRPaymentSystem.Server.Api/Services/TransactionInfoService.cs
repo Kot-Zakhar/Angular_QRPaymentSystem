@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using QRPaymentSystem.Server.Api.Models.DbModels;
 using Microsoft.IdentityModel.Tokens;
+using QRPaymentSystem.Server.Api.Models.ViewModels;
 
 namespace QRPaymentSystem.Server.Api.Services
 {
@@ -51,7 +52,7 @@ namespace QRPaymentSystem.Server.Api.Services
             };
         }
 
-        public async Task<TransactionInfo> GetTransactionInfo(string encodedTransactionInfoToken)
+        public async Task<TransactionInfoViewModel> GetTransactionInfo(string encodedTransactionInfoToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             if (!tokenHandler.CanReadToken(encodedTransactionInfoToken))
@@ -62,7 +63,7 @@ namespace QRPaymentSystem.Server.Api.Services
             {
                 System.Security.Claims.ClaimsPrincipal principal = tokenHandler.ValidateToken(encodedTransactionInfoToken, GetValidationParameters(), out decodedTransactionInfoToken);
                 TransactionInfo result = await TranslateTokenToTransactionInfo(decodedTransactionInfoToken);
-                return result;
+                return new TransactionInfoViewModel(result);
             }
             catch (SecurityTokenException)
             {

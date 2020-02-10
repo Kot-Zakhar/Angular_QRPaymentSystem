@@ -1,4 +1,4 @@
 export class User {
-  jwtAccessToken: string;
-  jwtRefreshToken: string;
+  accessToken: string;
+  refreshToken: string;
 }

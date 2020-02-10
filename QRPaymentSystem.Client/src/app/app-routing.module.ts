@@ -10,7 +10,8 @@ import {
   MyTransactionsComponent,
   NotFoundComponent,
   TransactionViewerComponent,
-  RegisterComponent
+  RegisterComponent,
+  TransactionCreatorComponent
 } from './pages';
 
 import {
@@ -32,15 +33,16 @@ import {
         children: [
           { path: routes.data, component: DataComponent },
           { path: routes.scan, component: QrComponent },
-          { path: routes.mytransactions, component: MyTransactionsComponent },
+          { path: routes.myTransactions, component: MyTransactionsComponent },
+          { path: routes.transactionCreator, component: TransactionCreatorComponent },
           { path: routes.transactionViewer + '/:mytransactionId', component: TransactionViewerComponent },
         ]
       },
       { path: routes.home, component: HomeComponent },
       { path: routes.login, component: LoginComponent },
       { path: routes.register, component: RegisterComponent },
-      { path: routes.notfound + '/:notFoundPath', component: NotFoundComponent },
-      { path: ':notFoundPath', redirectTo: routes.notfound + '/:notFoundPath' }
+      { path: routes.notFound + '/:notFoundPath', component: NotFoundComponent },
+      { path: ':notFoundPath', redirectTo: routes.notFound + '/:notFoundPath' }
     ])
   ],
   exports: [RouterModule],

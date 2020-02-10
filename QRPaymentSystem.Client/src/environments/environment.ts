@@ -11,12 +11,13 @@ export const routes = {
   root: '',
   data: 'data',
   scan: 'scan',
-  mytransactions: 'mytransactions',
+  myTransactions: 'mytransactions',
   transactionViewer: 'transaction',
+  transactionCreator: 'create-transaction',
   home: 'home',
   login: 'login',
   register: 'register',
-  notfound: 'notfound'
+  notFound: 'notfound'
 };
 
 /*

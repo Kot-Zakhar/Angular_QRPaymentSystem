@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BrowserQRCodeReader, VideoInputDevice } from '@zxing/library';
 import { debug } from 'debug';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-qr-scanner',

@@ -1,8 +1,8 @@
-import { QrJwt } from './qr-jwt';
+import { TransactionJwt } from './transactionJwt';
 import { TransactionDescription } from './transactionDescription';
 
 export class Transaction {
-    constructor(token: QrJwt, rawToken: string) {
+    constructor(token: TransactionJwt, rawToken: string) {
         this.rawToken = rawToken;
         this.description = new TransactionDescription(token);
     }

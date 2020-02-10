@@ -16,7 +16,7 @@ export class TransactionViewerComponent implements OnInit {
   @Input()
   transaction: Transaction;
   transactionId: string;
-  returnPath = routes.mytransactions;
+  returnPath = routes.myTransactions;
   private log = debug('app-transaction-viewer');
 
   fieldsToView = [
@@ -84,15 +84,14 @@ export class TransactionViewerComponent implements OnInit {
     private router: Router
   ) {
     this.transaction = null;
-    this.log('constructor');
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.transactionId = params.get('mytransactionId');
-      this.transaction = this.transactionService.getById(this.transactionId); //if id is null, than transaction will be undefined
+      // this.transaction = this.transactionService.getById(this.transactionId); //if id is null, than transaction will be undefined
       if (!this.transaction) {
-        // this.router.navigate(['/', routes.notfound], { queryParams: { transactionId:  this.transactionId } });
+        // this.router.navigate(['/', routes.notFound], { queryParams: { transactionId:  this.transactionId } });
         this.router.navigate(['/', routes.home]);
       } else {
         this.log(this.transaction);
@@ -102,11 +101,11 @@ export class TransactionViewerComponent implements OnInit {
 
   onComplete(transaction: Transaction) {
     let message: string;
-    if (this.transactionService.executeTransaction(transaction.id)) {
-      message = 'Transaction executed successfully.';
-    } else {
-      message = 'Transaction execution failed.';
-    }
+    // if (this.transactionService.executeTransaction(transaction.id)) {
+    //   message = 'Transaction executed successfully.';
+    // } else {
+    //   message = 'Transaction execution failed.';
+    // }
     this.snackBar.open(message, 'Ok', {
       duration: env.snackDurationInMs
     });

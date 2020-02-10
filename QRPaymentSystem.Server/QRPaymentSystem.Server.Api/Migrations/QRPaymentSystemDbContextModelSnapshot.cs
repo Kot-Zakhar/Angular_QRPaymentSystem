@@ -162,6 +162,10 @@ namespace QRPaymentSystem.Server.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");

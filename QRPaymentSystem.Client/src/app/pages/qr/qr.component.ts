@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { QrJwt, Transaction } from 'src/app/models';
-import { QrJwtService, TransactionService } from 'src/app/services';
+import { TransactionJwt, Transaction } from 'src/app/models';
+import { TransactionService } from 'src/app/services';
 import { routes, environment as env } from 'src/environments/environment';
 import { debug } from 'debug';
 
@@ -14,14 +14,13 @@ import { debug } from 'debug';
 })
 export class QrComponent implements OnInit {
   scannerNotAvailable = false;
-  qrJwt: QrJwt;
+  transactionJwt: TransactionJwt;
   transaction: Transaction;
   rawJwt = '';
   private log = debug('app-qr-component');
 
   constructor(
     private snackBar: MatSnackBar,
-    private qrJwtService: QrJwtService,
     private transactionService: TransactionService,
     private router: Router
   ) {}
@@ -31,16 +30,20 @@ export class QrComponent implements OnInit {
   onScanned(jwtString: string) {
     this.log(jwtString);
 
-    this.qrJwt = this.qrJwtService.parseQrJwtString(jwtString);
-    if (this.qrJwt) {
-      this.transaction = new Transaction(this.qrJwt, jwtString);
-      this.transactionService.latestScannedTransaction.next(this.transaction);
+    // this.transactionJwt = this.transactionJwtService.parseQrJwtString(jwtString);
+    this.snackBar.open('To be implemented.', 'OK', {
+      duration: env.snackDurationInMs
+    });
+    return;
+    if (this.transactionJwt) {
+      this.transaction = new Transaction(this.transactionJwt, jwtString);
+      this.transactionService.currentTransaction.next(this.transaction);
       this.router.navigate([routes.transactionViewer, this.transaction.id]);
     } else {
       this.snackBar.open('Invalid code.', 'Dismiss', {
         duration: env.snackDurationInMs
       });
-      this.transactionService.latestScannedTransaction.next(null);
+      this.transactionService.currentTransaction.next(null);
     }
   }
 

@@ -29,8 +29,8 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  get jwtAccessToken(): string {
-    return this.currentUserSubject.value.jwtAccessToken;
+  get accessToken(): string {
+    return this.currentUserSubject.value.accessToken;
   }
 
   isUserLoggedIn(): boolean {

@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>New transaction</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-spinner *ngIf="!transactionFormGroup" color="primary" mode="indeterminate" diameter=35></mat-spinner>
+
+        <form *ngIf="transactionFormGroup" [formGroup]="transactionFormGroup" (ngSubmit)="onSubmit()" class="transaction-description_flex-direction_column transaction-description_width_stretch">
+            <div *ngFor="let field of transactionFormModel.fields">
+                <mat-form-field class="transaction-description__field_width_100">
+                    <input matInput [formControlName]="field.key" [type]="field.type.name" [matTooltip]="field.comment" [placeholder]="field.label" [required]="field.required">
+                </mat-form-field>
+            </div>
+        </form>
+        <div *ngIf="jwtResult" class="qr-code-container">
+            <mat-divider></mat-divider>
+            <qrcode #qrcode [qrdata]="jwtResult" width="300" errorCorrectionLevel="M" elementType="img"></qrcode>
+            <mat-card-actions class="card-actions_justify_space-between">
+                <button id="copyButton" mat-button color="primary">Copy text</button>
+                <button mat-button color="primary" (click)="onSaveImage()">Save image</button>
+            </mat-card-actions>
+        </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="card-actions_justify_space-between">
+        <button mat-icon-button color="primary" aria-label="Back" [routerLink]="['/', returnPath]">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <mat-spinner *ngIf="loading" color="primary" mode="indeterminate" diameter=35></mat-spinner>
+        <!-- TODO: change disable condition -->
+        <button *ngIf="!loading" [disabled]="!transactionFormGroup?.valid" mat-icon-button color="accent" matTooltip="Click to create transaction" aria-label="Created" (click)="onSubmit(transactionFormGroup.value)">
+            <mat-icon>create</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

@@ -32,7 +32,7 @@ export class MyTransactionsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private transactionService: TransactionService
   ) {
-    this.transactions = this.transactionService.transactions;
+    // this.transactions = this.transactionService.transactions;
     this.log('constructor:', this.transactions);
   }
 
@@ -41,11 +41,11 @@ export class MyTransactionsComponent implements OnInit {
 
   onTransactionUpdate(transaction: Transaction) {
     let message: string;
-    if (this.transactionService.updateTransactionInfo(transaction.id)) {
-      message = 'Transaction updated successfully.';
-    } else {
-      message = 'Transaction updated failed.';
-    }
+    // if (this.transactionService.updateTransactionInfo(transaction.id)) {
+    //   message = 'Transaction updated successfully.';
+    // } else {
+    //   message = 'Transaction updated failed.';
+    // }
     this.snackBar.open(message, 'Ok', {
       duration: env.snackDurationInMs
     });

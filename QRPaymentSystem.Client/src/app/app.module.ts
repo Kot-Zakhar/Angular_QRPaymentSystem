@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppComponent } from './app.component';
 
@@ -19,7 +20,8 @@ import {
   MyTransactionsComponent,
   NotFoundComponent,
   TransactionViewerComponent,
-  RegisterComponent
+  RegisterComponent,
+  TransactionCreatorComponent
 } from './pages';
 
 import {
@@ -32,7 +34,6 @@ import {
 
 import {
   AuthService,
-  QrJwtService,
   TransactionService
 } from './services';
 
@@ -70,8 +71,11 @@ import { AppRoutingModule } from './app-routing.module';
     QrScannerComponent,
     TransactionViewerComponent,
     RegisterComponent,
+    TransactionCreatorComponent,
   ],
   imports: [
+    AppRoutingModule,
+    QRCodeModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -88,7 +92,6 @@ import { AppRoutingModule } from './app-routing.module';
     MatSelectModule,
     MatIconModule,
     MatSnackBarModule,
-    AppRoutingModule,
     MatTableModule,
     MatTooltipModule,
     MatDividerModule,
@@ -101,7 +104,6 @@ import { AppRoutingModule } from './app-routing.module';
 
     // services
     AuthService,
-    QrJwtService,
     TransactionService
   ],
   bootstrap: [AppComponent]

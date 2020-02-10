@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using QRPaymentSystem.Server.Api.Models.ApiModels;
+using QRPaymentSystem.Server.Api.Models.ViewModels;
 using QRPaymentSystem.Server.Api.Models.DbModels;
 
 namespace QRPaymentSystem.Server.Api.Services
@@ -21,7 +21,7 @@ namespace QRPaymentSystem.Server.Api.Services
             _configuration = configuration;
         }
 
-        public AuthorizationResult Authorize(IdentityProfile user)
+        public AuthorizationResultViewModel Authorize(IdentityProfile user)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("SecretJwtKey")));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -37,7 +37,7 @@ namespace QRPaymentSystem.Server.Api.Services
                 signingCredentials: signinCredentials
             );
 
-            var result = new AuthorizationResult
+            var result = new AuthorizationResultViewModel
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(tokeOptions)
             };
@@ -46,7 +46,7 @@ namespace QRPaymentSystem.Server.Api.Services
         }
 
         // todo: username and password validation
-        public bool AreCredentialsValid(LoginModel userCredentials)
+        public bool AreCredentialsValid(LoginViewModel userCredentials)
         {
             // validation of username and password
             return userCredentials != null;

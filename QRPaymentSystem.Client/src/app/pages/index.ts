@@ -6,3 +6,4 @@ export * from './my-transactions/my-transactions.component';
 export * from './not-found/not-found.component';
 export * from './transaction-viewer/transaction-viewer.component';
 export * from './register/register.component';
+export * from './transaction-creator/transaction-creator.component';

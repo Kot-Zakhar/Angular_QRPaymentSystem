@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using QRPaymentSystem.Server.Api.Models.ApiModels;
+using QRPaymentSystem.Server.Api.Models.ViewModels;
 using QRPaymentSystem.Server.Api.Models.DbModels;
 
 namespace QRPaymentSystem.Server.Api.Services
@@ -17,7 +17,7 @@ namespace QRPaymentSystem.Server.Api.Services
             _userManager = userManager;
         }
 
-        public async Task<IdentityProfile> FindByCredentialsAsync(LoginModel userCredentials)
+        public async Task<IdentityProfile> FindByCredentialsAsync(LoginViewModel userCredentials)
         {
             IdentityProfile user = await _userManager.FindByNameAsync(userCredentials.Username);
 
@@ -27,7 +27,7 @@ namespace QRPaymentSystem.Server.Api.Services
                 return null;
         }
 
-        public async Task<IdentityResult> Register(RegisterModel userCredentials)
+        public async Task<IdentityResult> Register(RegisterViewModel userCredentials)
         {
             var user = new IdentityProfile(userCredentials.Username)
             {

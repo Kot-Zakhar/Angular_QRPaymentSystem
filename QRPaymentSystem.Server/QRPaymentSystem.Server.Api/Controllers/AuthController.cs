@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using QRPaymentSystem.Server.Api.Models.ApiModels;
+using QRPaymentSystem.Server.Api.Models.ViewModels;
 using QRPaymentSystem.Server.Api.Models.DbModels;
 using QRPaymentSystem.Server.Api.Services;
 
@@ -30,7 +25,7 @@ namespace QRPaymentSystem.Server.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel userCredentials)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel userCredentials)
         {
             if (!_authService.AreCredentialsValid(userCredentials))
                 return BadRequest("Invalid credentials.");
@@ -40,13 +35,13 @@ namespace QRPaymentSystem.Server.Api.Controllers
             if (user == null)
                 return BadRequest("Invalid credentials.");
 
-            AuthorizationResult result = _authService.Authorize(user);
+            AuthorizationResultViewModel result = _authService.Authorize(user);
 
             return Ok(result);
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel userCredentials)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel userCredentials)
         {
             if (!_authService.AreCredentialsValid(userCredentials))
                 return BadRequest("Invalid credentials.");
@@ -56,7 +51,7 @@ namespace QRPaymentSystem.Server.Api.Controllers
             if (!identityResult.Succeeded)
                 return BadRequest(identityResult.Errors);
 
-            return await Login(new LoginModel
+            return await Login(new LoginViewModel
             {
                 Username = userCredentials.Username,
                 Password = userCredentials.Password

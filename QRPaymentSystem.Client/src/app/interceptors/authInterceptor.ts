@@ -11,9 +11,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url } = request;
-        var authRequest = request;
+        let authRequest = request;
         console.log('Request intercepted.');
-        if (url.includes('/api')) {
+        if (url.includes('api')) {
             authRequest = this.addAuthorizationHeader(request);
         }
         return next.handle(authRequest);
@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private addAuthorizationHeader(request: HttpRequest<any>): HttpRequest<any> {
         if (this.authService.isUserLoggedIn()) {
             return request.clone({
-                setHeaders: { Authorization: 'Bearer' + this.authService.jwtAccessToken }
+                setHeaders: { Authorization: 'Bearer ' + this.authService.accessToken }
             });
         }
         return request;
