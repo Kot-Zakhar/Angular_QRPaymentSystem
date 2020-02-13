@@ -9,11 +9,12 @@ export const environment = {
 
 export const routes = {
   root: '',
-  data: 'data',
   scan: 'scan',
-  myTransactions: 'mytransactions',
+  history: 'history',
   transactionViewer: 'transaction',
   transactionCreator: 'create-transaction',
+  assets: 'assets',
+  payments: 'payments',
   home: 'home',
   login: 'login',
   register: 'register',

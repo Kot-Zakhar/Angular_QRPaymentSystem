@@ -1,4 +1,4 @@
-export class RegisterViewModel {
+export class RegisterationViewModel {
   firstName: string;
   secondName: string;
   username: string;

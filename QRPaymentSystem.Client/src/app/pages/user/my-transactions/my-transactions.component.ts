@@ -10,9 +10,9 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './my-transactions.component.html',
   styleUrls: ['./my-transactions.component.css']
 })
-export class MyTransactionsComponent implements OnInit {
+export class TransactionHistoryComponent implements OnInit {
   private log = debug('app-transaction-service');
-  transactionViewerPath = routes.transactionViewer;
+  // transactionViewerPath = routes.transactionViewer;
   transactions: Transaction[];
   displayedColumns: string[] = [
     'index',

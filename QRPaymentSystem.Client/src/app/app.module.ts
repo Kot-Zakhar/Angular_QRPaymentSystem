@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
-
 import { AppComponent } from './app.component';
 
 import {
@@ -15,13 +14,13 @@ import {
 import {
   HomeComponent,
   LoginComponent,
-  DataComponent,
   QrComponent,
-  MyTransactionsComponent,
+  TransactionHistoryComponent,
   NotFoundComponent,
   TransactionViewerComponent,
   RegisterComponent,
-  TransactionCreatorComponent
+  TransactionCreatorComponent,
+  PaymentsComponent
 } from './pages';
 
 import {
@@ -51,10 +50,15 @@ import {
   MatTableModule,
   MatTooltipModule,
   MatDividerModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTabsModule,
+  MatListModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AssetsComponent } from './pages/user/assets/assets.component';
+import { SmallAssetViewerComponent } from './components/small-asset-viewer/small-asset-viewer.component';
+import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
 
 @NgModule({
   declarations: [
@@ -62,16 +66,19 @@ import { AppRoutingModule } from './app-routing.module';
     // pages
     HomeComponent,
     LoginComponent,
-    DataComponent,
     QrComponent,
-    MyTransactionsComponent,
+    TransactionHistoryComponent,
     NotFoundComponent,
+    PaymentsComponent,
     // components
     NavigationComponent,
     QrScannerComponent,
     TransactionViewerComponent,
     RegisterComponent,
     TransactionCreatorComponent,
+    AssetsComponent,
+    SmallAssetViewerComponent,
+    AssetIdMaskPipe,
   ],
   imports: [
     AppRoutingModule,
@@ -81,6 +88,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
     // material modules
     MatSliderModule,
     MatToolbarModule,
@@ -95,7 +103,9 @@ import { AppRoutingModule } from './app-routing.module';
     MatTableModule,
     MatTooltipModule,
     MatDividerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatListModule
   ],
   providers: [
     // helpers

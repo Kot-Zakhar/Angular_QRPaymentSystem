@@ -1,9 +1,12 @@
-export * from './data/data.component';
 export * from './home/home.component';
-export * from './login/login.component';
-export * from './qr/qr.component';
-export * from './my-transactions/my-transactions.component';
+
+export * from './auth/login/login.component';
+export * from './auth/register/register.component';
+
 export * from './not-found/not-found.component';
-export * from './transaction-viewer/transaction-viewer.component';
-export * from './register/register.component';
-export * from './transaction-creator/transaction-creator.component';
+
+export * from './user/qr/qr.component';
+export * from './user/my-transactions/my-transactions.component';
+export * from './user/transaction-viewer/transaction-viewer.component';
+export * from './user/transaction-creator/transaction-creator.component';
+export * from './user/payments/payments.component';

@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { debug } from 'debug';
 import { MatSnackBar, ErrorStateMatcher } from '@angular/material';
-import { RegisterViewModel } from 'src/app/models/viewModels/registerViewModel';
+import { RegisterationViewModel } from 'src/app/models/viewModels/registerationViewModel';
 import { first } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment as env } from 'src/environments/environment';
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.log(this.registerForm.value);
 
-    this.authService.register(this.registerForm.value as RegisterViewModel)
+    this.authService.register(this.registerForm.value as RegisterationViewModel)
       .pipe(first())
       .subscribe(
         data => {

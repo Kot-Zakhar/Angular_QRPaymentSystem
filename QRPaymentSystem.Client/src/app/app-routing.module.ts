@@ -5,18 +5,19 @@ import { routes } from 'src/environments/environment';
 import {
   HomeComponent,
   LoginComponent,
-  DataComponent,
   QrComponent,
-  MyTransactionsComponent,
+  TransactionHistoryComponent,
   NotFoundComponent,
-  TransactionViewerComponent,
+  // TransactionViewerComponent,
   RegisterComponent,
-  TransactionCreatorComponent
+  // TransactionCreatorComponent,
+  PaymentsComponent
 } from './pages';
 
 import {
   LoginGuard
 } from './helpers';
+import { AssetsComponent } from './pages/user/assets/assets.component';
 
 
 @NgModule({
@@ -31,11 +32,17 @@ import {
         path: routes.root,
         canActivateChild: [LoginGuard],
         children: [
-          { path: routes.data, component: DataComponent },
-          { path: routes.scan, component: QrComponent },
-          { path: routes.myTransactions, component: MyTransactionsComponent },
-          { path: routes.transactionCreator, component: TransactionCreatorComponent },
-          { path: routes.transactionViewer + '/:mytransactionId', component: TransactionViewerComponent },
+          { path: routes.assets, component: AssetsComponent },
+          { path: routes.payments, component: PaymentsComponent },
+          {
+            path: routes.payments,
+            children: [
+              { path: routes.scan, component: QrComponent },
+              { path: routes.history, component: TransactionHistoryComponent },
+            ]
+          },
+          // { path: routes.transactionCreator, component: TransactionCreatorComponent },
+          // { path: routes.transactionViewer + '/:mytransactionId', component: TransactionViewerComponent },
         ]
       },
       { path: routes.home, component: HomeComponent },

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { debug } from 'debug';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
-import { RegisterViewModel as RegisterModel } from '../models/viewModels/registerViewModel';
+import { RegisterationViewModel as RegisterModel } from '../models/viewModels/registerationViewModel';
 
 @Injectable({
   providedIn: 'root'

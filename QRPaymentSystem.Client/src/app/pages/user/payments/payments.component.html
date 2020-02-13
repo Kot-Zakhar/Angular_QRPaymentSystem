@@ -1,0 +1,9 @@
+<mat-nav-list>
+    <div *ngFor="let paymentGroup of paymentGroups">
+        <h3 mat-subheader>{{ paymentGroup.name }}</h3>
+        <a mat-list-item *ngFor="let groupItem of paymentGroup.group" [routerLink]="groupItem.link" class="link__text-align">
+            <mat-icon matListIcon>{{ groupItem.icon }}</mat-icon>
+            <h4 matLine>{{ groupItem.name }}</h4>
+        </a>
+    </div>
+</mat-nav-list>
