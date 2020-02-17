@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using QRPaymentSystem.Server.Api.Models.DbModels;
+using QRPaymentSystem.Server.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;
 using QRPaymentSystem.Server.Api.Models.QueryModels;
 
@@ -14,9 +14,9 @@ namespace QRPaymentSystem.Server.Api.Controllers
     [Authorize]
     public class AssetController : ControllerBase
     {
-        public UserManager<IdentityProfile> UserManager { get; }
+        public UserManager<User> UserManager { get; }
 
-        public AssetController(UserManager<IdentityProfile> userManager)
+        public AssetController(UserManager<User> userManager)
         {
             UserManager = userManager;
         }

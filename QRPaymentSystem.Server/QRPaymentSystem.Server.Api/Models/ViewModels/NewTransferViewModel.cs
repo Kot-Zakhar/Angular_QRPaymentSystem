@@ -1,6 +1,4 @@
 using System;
-using QRPaymentSystem.Server.Api.Models.DbModels;
-using QRPaymentSystem.Server.Api.Models.Enums;
 
 namespace QRPaymentSystem.Server.Api.Models.ViewModels
 {

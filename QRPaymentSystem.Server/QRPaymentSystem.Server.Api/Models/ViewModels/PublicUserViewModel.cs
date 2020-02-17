@@ -1,10 +1,10 @@
-using QRPaymentSystem.Server.Api.Models.DbModels;
+using QRPaymentSystem.Server.Domain.Models;
 
 namespace QRPaymentSystem.Server.Api.Models.ViewModels
 {
     public class PublicUserViewModel
     {
-        public PublicUserViewModel(IdentityProfile user) {
+        public PublicUserViewModel(User user) {
             
         }
     }
