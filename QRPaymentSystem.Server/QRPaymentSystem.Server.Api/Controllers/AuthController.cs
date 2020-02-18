@@ -40,22 +40,18 @@ namespace QRPaymentSystem.Server.Api.Controllers
             return Ok(result);
         }
 
-        // [HttpPost("register")]
-        // public async Task<IActionResult> Register([FromBody] RegisterViewModel userCredentials)
-        // {
-        //     if (!_authService.AreCredentialsValid(userCredentials))
-        //         return BadRequest("Invalid credentials.");
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegistrationModel userCredentials)
+        {
+            if (!_authService.AreCredentialsValid(userCredentials))
+                return BadRequest("Invalid credentials.");
 
-        //     IdentityResult identityResult = await _userService.Register(userCredentials);
+            IdentityResult identityResult = await _userService.Register(userCredentials);
 
-        //     if (!identityResult.Succeeded)
-        //         return BadRequest(identityResult.Errors);
+            if (!identityResult.Succeeded)
+                return BadRequest(identityResult.Errors);
 
-        //     return await Login(new LoginViewModel
-        //     {
-        //         Username = userCredentials.Username,
-        //         Password = userCredentials.Password
-        //     });
-        // }
+            return await Login(userCredentials);
+        }
     }
 }
