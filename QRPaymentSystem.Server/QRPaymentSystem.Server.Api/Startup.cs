@@ -1,13 +1,12 @@
 using System;
-using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using QRPaymentSystem.Server.Repository.EntityFramework;
+using QRPaymentSystem.Server.Auth.Extensions;
+using QRPaymentSystem.Server.Application.Extensions;
+using QRPaymentSystem.Server.Repository.EntityFramework.Extensions;
 
 namespace QRPaymentSystem.Server.Api
 {
@@ -28,10 +27,10 @@ namespace QRPaymentSystem.Server.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddContextWithIdentity(Configuration);
-            services.AddUnitOfWork();
+            services.AddApplicationContext(Configuration);
+            services.AddRepositories();
 
-            services.AddJWTAuthentication(Configuration);
+            services.AddAuthContext(Configuration);
 
             services.AddControllers();
 
@@ -41,17 +40,20 @@ namespace QRPaymentSystem.Server.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.EnsureApplicationContextCreated();
+            app.EnsureAuthContextCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseIdentityServer();
+
 
             app.UseEndpoints(endpoints =>
             {

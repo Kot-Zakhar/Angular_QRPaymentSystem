@@ -3,9 +3,9 @@ using QRPaymentSystem.Server.Domain.Models;
 
 namespace QRPaymentSystem.Server.Repository.EntityFramework.Repositories
 {
-    public class MoneyAccountRepository : Repository<MoneyAccount>, IMoneyAccountRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        public MoneyAccountRepository(QRPaymentSystemDbContext context) : base(context)
+        public UserRepository(QRPaymentSystemDbContext context) : base(context)
         {
         }
     }

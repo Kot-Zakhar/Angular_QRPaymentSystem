@@ -1,0 +1,24 @@
+<!-- <ul class="navbar-nav" *ngIf="isAuthenticated | async">
+    <li class="nav-item">
+        <a  class="nav-link text-dark" [routerLink]='["/authentication/profile"]' title="Manage">Hello {{ userName | async }}</a>
+    </li>
+    <li class="nav-item">
+        <a  class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>
+    </li>
+</ul>
+<ul class="navbar-nav" *ngIf="!(isAuthenticated | async)">
+    <li class="nav-item">
+        <a class="nav-link text-dark" [routerLink]='["/authentication/register"]'>Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>Login</a>
+    </li>
+</ul> -->
+<div *ngIf="isAuthenticated | async">
+    <button mat-button [routerLink]='paths.ProfilePathComponents' title="Manage">Hello {{ userName | async }}</button>
+    <button mat-button [routerLink]='paths.LogOutPathComponents' [state]='{ local: true }' title="Logout">Logout</button>
+</div>
+<div *ngIf="!(isAuthenticated | async)">
+    <button mat-button [routerLink]='paths.RegisterPathComponents'>Register</button>
+    <button mat-button [routerLink]='paths.LoginPathComponents'>Login</button>
+</div>

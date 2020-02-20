@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using QRPaymentSystem.Server.Domain.Models;
 
-namespace QRPaymentSystem.Server.Repository.EntityFramework.QRDbContext
+namespace QRPaymentSystem.Server.Repository.EntityFramework
 {
-    public class QRPaymentSystemDbContext : IdentityDbContext<User>
+    public class QRPaymentSystemDbContext : DbContext
     {
         public QRPaymentSystemDbContext(DbContextOptions<QRPaymentSystemDbContext> options) : base(options)
         { }
@@ -38,9 +38,10 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework.QRDbContext
                 .OnDelete(DeleteBehavior.NoAction);
         }
 
-        public DbSet<MoneyAccount> Assets { get; set; }
+        public DbSet<MoneyAccount> MoneyAccounts { get; set; }
         public DbSet<Scan> Scans { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionInfo> TransactionInfos { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using QRPaymentSystem.Server.Domain.Models;
 
-namespace QRPaymentSystem.Server.Repository.EntityFramework
+namespace QRPaymentSystem.Server.Repository.EntityFramework.Repositories
 {
     public class TransactionRepository : Repository<Transaction>, ITransactionRepository
     {
-        public TransactionRepository(DbContext context) : base(context)
+        public TransactionRepository(QRPaymentSystemDbContext context) : base(context)
         {
         }
     }

@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
+import { ApiAuthorizationModule, apiAuthorizationInterceptorProviders } from './api-authorization';
 
 import {
   NavigationComponent,
@@ -22,14 +23,6 @@ import {
   TransactionCreatorComponent,
   PaymentsComponent
 } from './pages';
-
-import {
-  LoginGuard,
-} from './helpers';
-
-import {
-  interceptorProviders
-} from './interceptors';
 
 import {
   AuthService,
@@ -81,11 +74,13 @@ import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
     AssetIdMaskPipe,
   ],
   imports: [
-    AppRoutingModule,
     QRCodeModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ApiAuthorizationModule,
+    AppRoutingModule,
+
     ReactiveFormsModule,
     FormsModule,
 
@@ -108,9 +103,7 @@ import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
     MatListModule
   ],
   providers: [
-    // helpers
-    LoginGuard,
-    interceptorProviders,
+    apiAuthorizationInterceptorProviders,
 
     // services
     AuthService,
