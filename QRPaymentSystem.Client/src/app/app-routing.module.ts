@@ -14,11 +14,8 @@ import {
   PaymentsComponent
 } from './pages';
 
-// import {
-//   LoginGuard
-// } from './helpers';
 import { AssetsComponent } from './pages/user/assets/assets.component';
-import { AuthorizeGuard, ModulePath as ApiModulePath, ApiAuthorizationModule } from './api-authorization';
+import { AuthGuard } from './helpers/AuthGuard';
 
 
 @NgModule({
@@ -31,8 +28,7 @@ import { AuthorizeGuard, ModulePath as ApiModulePath, ApiAuthorizationModule } f
       },
       {
         path: routes.root,
-        // canActivateChild: [LoginGuard],
-        canActivateChild: [ AuthorizeGuard ],
+        canActivateChild: [ AuthGuard ],
         children: [
           { path: routes.assets, component: AssetsComponent },
           { path: routes.payments, component: PaymentsComponent },
@@ -45,15 +41,6 @@ import { AuthorizeGuard, ModulePath as ApiModulePath, ApiAuthorizationModule } f
           },
           // { path: routes.transactionCreator, component: TransactionCreatorComponent },
           // { path: routes.transactionViewer + '/:mytransactionId', component: TransactionViewerComponent },
-        ]
-      },
-      {
-        path: routes.root,
-        children: [
-          {
-            path: ApiModulePath,
-            loadChildren: () => ApiAuthorizationModule
-          }
         ]
       },
       { path: routes.home, component: HomeComponent },

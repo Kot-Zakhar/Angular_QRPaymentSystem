@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using QRPaymentSystem.Server.Auth.Extensions;
+using IdentityServer4.AccessTokenValidation;
 using QRPaymentSystem.Server.Application.Extensions;
 using QRPaymentSystem.Server.Repository.EntityFramework.Extensions;
 
@@ -24,24 +24,31 @@ namespace QRPaymentSystem.Server.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationContext(Configuration);
             services.AddRepositories();
 
-            services.AddAuthContext(Configuration);
-
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
 
             services.AddServices();
+         
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options => {
+                    // options.Authority = "https://demo.identityserver.io";
+                    options.Authority = "http://localhost:5050";
+                    options.RequireHttpsMetadata = false;
+
+                    options.ApiName = "qrApi";
+                    // options.ApiName = "api";
+                });
+            services.AddAuthorization();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.EnsureApplicationContextCreated();
-            app.EnsureAuthContextCreated();
 
             if (env.IsDevelopment())
             {
@@ -52,12 +59,11 @@ namespace QRPaymentSystem.Server.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseIdentityServer();
-
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }

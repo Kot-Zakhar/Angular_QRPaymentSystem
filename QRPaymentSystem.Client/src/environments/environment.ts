@@ -1,3 +1,5 @@
+import { AuthConfig } from 'angular-oauth2-oidc';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -19,6 +21,18 @@ export const routes = {
   login: 'login',
   register: 'register',
   notFound: 'notfound'
+};
+
+export const authConfig: AuthConfig = {
+  issuer: 'http://localhost:5050',
+  // issuer: 'https://demo.identityserver.io',
+  requireHttps: false,
+  redirectUri: 'http://localhost:4200',
+  silentRefreshRedirectUri: 'http://localhost:4200/silent-refresh.html',
+  clientId: 'ngspa',
+  // clientId: 'implicit',
+  // scope: 'qrApi'
+  scope: 'openid profile email qrApi'
 };
 
 /*

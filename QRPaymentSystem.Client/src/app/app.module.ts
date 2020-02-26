@@ -5,11 +5,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AppComponent } from './app.component';
-import { ApiAuthorizationModule, apiAuthorizationInterceptorProviders } from './api-authorization';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { AuthInterceptorProvider } from './helpers/AuthInterceptor';
+// import { ApiAuthorizationModule, apiAuthorizationInterceptorProviders } from './api-authorization';
 
 import {
   NavigationComponent,
-  QrScannerComponent
+  QrScannerComponent,
+  CallbackComponent,
+  SmallAssetViewerComponent
 } from './components';
 
 import {
@@ -21,7 +25,8 @@ import {
   TransactionViewerComponent,
   RegisterComponent,
   TransactionCreatorComponent,
-  PaymentsComponent
+  PaymentsComponent,
+  AssetsComponent
 } from './pages';
 
 import {
@@ -49,9 +54,8 @@ import {
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AssetsComponent } from './pages/user/assets/assets.component';
-import { SmallAssetViewerComponent } from './components/small-asset-viewer/small-asset-viewer.component';
 import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
+import { AuthGuard } from './helpers/AuthGuard';
 
 @NgModule({
   declarations: [
@@ -72,13 +76,15 @@ import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
     AssetsComponent,
     SmallAssetViewerComponent,
     AssetIdMaskPipe,
+    CallbackComponent,
   ],
   imports: [
     QRCodeModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ApiAuthorizationModule,
+    OAuthModule.forRoot(),
+    // ApiAuthorizationModule,
     AppRoutingModule,
 
     ReactiveFormsModule,
@@ -103,7 +109,8 @@ import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
     MatListModule
   ],
   providers: [
-    apiAuthorizationInterceptorProviders,
+    AuthInterceptorProvider,
+    AuthGuard,
 
     // services
     AuthService,
