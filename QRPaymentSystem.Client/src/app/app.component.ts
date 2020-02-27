@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { isPlatformBrowser } from '@angular/common';
 import { authConfig } from 'src/environments/environment';
+import { debug } from 'debug';
+import { AuthService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +12,11 @@ import { authConfig } from 'src/environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  private log = debug('app-root-component');
   title = 'qrPaymentSystemApp';
   constructor(
-    private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private oauthService: OAuthService
-  ) {
-    if (isPlatformBrowser(platformId)) {
-      this.oauthService.configure(authConfig);
-      this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-      this.oauthService.loadDiscoveryDocumentAndTryLogin();
-    }
-  }
+  ) { }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-
-      this.oauthService.loadDiscoveryDocumentAndTryLogin().then(_ => {
-        if (
-          !this.oauthService.hasValidIdToken() ||
-          !this.oauthService.hasValidAccessToken()
-        ) {
-          this.oauthService.initImplicitFlow('some-state');
-        }
-      });
-    }
   }
 }

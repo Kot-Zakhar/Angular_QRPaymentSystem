@@ -6,11 +6,11 @@
     </div>
     <span class="spacer"></span>
     <!-- <app-login-menu></app-login-menu> -->
-    <!-- <div *ngIf="!currentUser">
-        <button mat-button class='paddings' [routerLink]="routes.login">Login</button>
-        <button mat-button class='paddings' [routerLink]="routes.register">Register</button>
+    <div *ngIf="!currentUser">
+        <button mat-button class='paddings' (click)="login()">Login</button>
+        <!-- <button mat-button class='paddings' [routerLink]="routes.register">Register</button> -->
     </div>
     <div *ngIf="currentUser">
         <button mat-button class='paddings' (click)="logout()">Logout</button>
-    </div> -->
+    </div>
 </mat-toolbar>

@@ -36,12 +36,10 @@ namespace QRPaymentSystem.Server.Api
          
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options => {
-                    // options.Authority = "https://demo.identityserver.io";
                     options.Authority = "http://localhost:5050";
                     options.RequireHttpsMetadata = false;
 
                     options.ApiName = "qrApi";
-                    // options.ApiName = "api";
                 });
             services.AddAuthorization();
         }

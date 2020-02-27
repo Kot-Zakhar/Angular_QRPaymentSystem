@@ -52,21 +52,21 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.log(this.registerForm.value);
 
-    this.authService.register(this.registerForm.value as RegisterationViewModel)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.log('registration result: ', data);
-          this.router.navigate(['/data']);
-        },
-        (error: HttpErrorResponse) => {
-          this.log('registration error: ', error);
-          this.loading = false;
-          this.snackBar.open(error.statusText, 'Ok', {
-            duration: env.snackDurationInMs
-          });
-        }
-      );
+    // this.authService.register(this.registerForm.value as RegisterationViewModel)
+    //   .pipe(first())
+    //   .subscribe(
+    //     data => {
+    //       this.log('registration result: ', data);
+    //       this.router.navigate(['/data']);
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //       this.log('registration error: ', error);
+    //       this.loading = false;
+    //       this.snackBar.open(error.statusText, 'Ok', {
+    //         duration: env.snackDurationInMs
+    //       });
+    //     }
+    //   );
     // this.authService.login(this.registerForm.controls.username.value, this.registerForm.controls.password.value)
     //   .pipe(first())
     //   .subscribe(

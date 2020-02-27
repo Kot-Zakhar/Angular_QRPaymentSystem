@@ -48,7 +48,6 @@ namespace QRPaymentSystem.IdentityServer
                     AllowedCorsOrigins = { "http://localhost:4200" },
 
                     AllowAccessTokensViaBrowser = true,
-                    // AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowedScopes = { "openid", "profile", "email", "qrApi" }
                 }

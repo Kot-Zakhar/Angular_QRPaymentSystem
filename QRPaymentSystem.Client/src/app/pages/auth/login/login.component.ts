@@ -49,20 +49,20 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.log(this.loginForm.value);
 
-    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.log('login result: ', data);
-          this.router.navigate(['/data']);
-        },
-        (error: HttpErrorResponse) => {
-          this.log('login error: ', error);
-          this.loading = false;
-          this.snackBar.open(error.statusText, 'Ok', {
-            duration: env.snackDurationInMs
-          });
-        }
-      );
+    // this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+    //   .pipe(first())
+    //   .subscribe(
+    //     data => {
+    //       this.log('login result: ', data);
+    //       this.router.navigate(['/data']);
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //       this.log('login error: ', error);
+    //       this.loading = false;
+    //       this.snackBar.open(error.statusText, 'Ok', {
+    //         duration: env.snackDurationInMs
+    //       });
+    //     }
+    //   );
   }
 }
