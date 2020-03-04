@@ -10,17 +10,14 @@ namespace QRPaymentSystem.Server.Domain.Models
             PaymentDate = DateTime.UtcNow;
         }
 
-        public virtual TransactionInfo TransactionInfo { get; set; }
+        // public virtual TransactionInfo TransactionInfo { get; set; }
         
-        public virtual MoneyAccount FromAsset { get; set; }
-
-        public virtual MoneyAccount ToAsset { get; set; }
 
         public int Amount { get; set; }
-        public double ExchangeRate { get; set; }
-
         public DateTime PaymentDate { get; set; }
-        public TransactionStatus Status { get; set; }
-
+        public Guid FromMoneyAccountId { get; set; }
+        public Guid ToMoneyAccountId { get; set; }
+        public virtual MoneyAccount FromMoneyAccount { get; set; }
+        public virtual MoneyAccount ToMoneyAccount { get; set; }
     }
 }

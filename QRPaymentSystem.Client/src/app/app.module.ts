@@ -18,12 +18,10 @@ import {
 
 import {
   HomeComponent,
-  LoginComponent,
   QrComponent,
   TransactionHistoryComponent,
   NotFoundComponent,
   TransactionViewerComponent,
-  RegisterComponent,
   TransactionCreatorComponent,
   PaymentsComponent,
   AssetsComponent
@@ -62,7 +60,6 @@ import { AuthGuard } from './helpers/AuthGuard';
     AppComponent,
     // pages
     HomeComponent,
-    LoginComponent,
     QrComponent,
     TransactionHistoryComponent,
     NotFoundComponent,
@@ -71,7 +68,6 @@ import { AuthGuard } from './helpers/AuthGuard';
     NavigationComponent,
     QrScannerComponent,
     TransactionViewerComponent,
-    RegisterComponent,
     TransactionCreatorComponent,
     AssetsComponent,
     SmallAssetViewerComponent,

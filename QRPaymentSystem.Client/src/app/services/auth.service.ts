@@ -16,23 +16,59 @@ export class AuthService {
   constructor(
     private oauthService: OAuthService,
   ) {
-    // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject.subscribe(next => {
+      this.log('User subject is updated:', next);
+    },
+    err => {
+      this.log('Error in userSubject:', err);
+    });
 
-      this.oauthService.configure(authConfig);
-      this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-      // this.oauthService.loadDiscoveryDocument()
-      this.oauthService.loadDiscoveryDocumentAndTryLogin()
-        .then(value => {
-          this.log('OnInit: loadDiscoveryDocumentAndTryLogin: ', value);
-          if (value) {
-            this.oauthService.loadUserProfile()
-              .then(profile => {
-                this.log('Got profile: ', profile);
-                this.currentUserSubject.next(profile as User);
-              });
-          }
-        })
-        .catch(err => { this.log('OnInit: loadDiscoveryDocumentAndTryLogin.error:', err); });
+    this.oauthService.configure(authConfig);
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oauthService.loadDiscoveryDocumentAndTryLogin()
+      .then(isLogged => {
+        this.log('is logged: ', isLogged);
+      });
+  }
+
+  tryGetProfile() {
+    return this.oauthService.loadUserProfile().then(profile => {
+      this.currentUserSubject.next(profile as User);
+      return profile;
+    });
+  }
+
+  tryLogin() {
+    return this.oauthService.loadDiscoveryDocumentAndTryLogin()
+      .then(isLogged => {
+        if (isLogged) {
+          this.oauthService.loadUserProfile()
+            .then(profile => {
+              this.log('Got profile:', profile);
+              this.currentUserSubject.next(profile as User);
+            })
+            .catch(err => {
+
+            });
+        }
+        // else {
+        //   if (!this.oauthService.hasValidIdToken() || !this.oauthService.hasValidAccessToken()) {
+        //     this.oauthService.initImplicitFlow();
+        //   }
+        // }
+        return isLogged;
+      });
+    // this.oauthService.tryLoginImplicitFlow()
+    //   .then(isLogged => {
+    //     this.log('Logged in:', isLogged);
+    //     if (isLogged) {
+    //       this.oauthService.loadUserProfile()
+    //        .then(profile => {
+    //          this.log('Got profile: ', profile);
+    //          this.currentUserSubject.next(profile as User);
+    //        });
+    //     }
+    //   });
   }
 
   isUserLoggedIn(): boolean {

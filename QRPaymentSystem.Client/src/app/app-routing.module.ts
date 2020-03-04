@@ -4,18 +4,17 @@ import { routes } from 'src/environments/environment';
 
 import {
   HomeComponent,
-  LoginComponent,
   QrComponent,
   TransactionHistoryComponent,
   NotFoundComponent,
   // TransactionViewerComponent,
-  RegisterComponent,
   // TransactionCreatorComponent,
   PaymentsComponent
 } from './pages';
 
 import { AssetsComponent } from './pages/user/assets/assets.component';
 import { AuthGuard } from './helpers/AuthGuard';
+import { CallbackComponent } from './components';
 
 
 @NgModule({
@@ -23,8 +22,9 @@ import { AuthGuard } from './helpers/AuthGuard';
     RouterModule.forRoot([
       {
         path: routes.root,
-        redirectTo: 'home',
+        // redirectTo: 'home',
         pathMatch: 'full',
+        component: CallbackComponent
       },
       {
         path: routes.root,
@@ -44,8 +44,6 @@ import { AuthGuard } from './helpers/AuthGuard';
         ]
       },
       { path: routes.home, component: HomeComponent },
-      { path: routes.login, component: LoginComponent },
-      { path: routes.register, component: RegisterComponent },
       { path: routes.notFound + '/:notFoundPath', component: NotFoundComponent },
       { path: ':notFoundPath', redirectTo: routes.notFound + '/:notFoundPath' }
     ])

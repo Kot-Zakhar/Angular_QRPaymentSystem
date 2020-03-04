@@ -1,9 +1,12 @@
 -- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`users`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `qr_payment_system_db`.`users` ;
+
 CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`users` (
-  `identity_id` VARCHAR(32) NOT NULL,
-  `username` VARCHAR(32) NOT NULL,
+  `identity_id` VARCHAR(36) NOT NULL,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NULL,
   PRIMARY KEY (`identity_id`))
 ENGINE = InnoDB;
 
@@ -11,9 +14,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`money_accounts`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `qr_payment_system_db`.`money_accounts` ;
+
 CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`money_accounts` (
-  `id` VARCHAR(32) NOT NULL,
-  `users_identity_id` VARCHAR(32) NOT NULL,
+  `id` VARCHAR(36) NOT NULL,
+  `users_identity_id` VARCHAR(36) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_money_accounts_users`
@@ -29,13 +34,15 @@ CREATE INDEX `fk_money_accounts_users_idx` ON `qr_payment_system_db`.`money_acco
 -- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`transactions`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `qr_payment_system_db`.`transactions` ;
+
 CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`transactions` (
-  `idtransactions` VARCHAR(32) NOT NULL,
-  `from_money_account_id` VARCHAR(32) NOT NULL,
-  `to_money_account_id` VARCHAR(32) NOT NULL,
+  `id` VARCHAR(36) NOT NULL,
+  `from_money_account_id` VARCHAR(36) NOT NULL,
+  `to_money_account_id` VARCHAR(36) NOT NULL,
   `amount` INT NOT NULL,
   `date` DATETIME NULL,
-  PRIMARY KEY (`idtransactions`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_transactions_money_accounts1`
     FOREIGN KEY (`from_money_account_id`)
     REFERENCES `qr_payment_system_db`.`money_accounts` (`id`)

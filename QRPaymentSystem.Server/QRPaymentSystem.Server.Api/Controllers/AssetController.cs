@@ -1,11 +1,7 @@
-using System;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using QRPaymentSystem.Server.Domain.Models;
-using System.IdentityModel.Tokens.Jwt;
 using QRPaymentSystem.Server.Api.Models.QueryModels;
+using System.Linq;
 
 namespace QRPaymentSystem.Server.Api.Controllers
 {
@@ -14,18 +10,18 @@ namespace QRPaymentSystem.Server.Api.Controllers
     [Authorize]
     public class AssetController : ControllerBase
     {
-        public UserManager<User> UserManager { get; }
+        // public UserManager<User> UserManager { get; }
 
-        public AssetController(UserManager<User> userManager)
+        public AssetController(/* UserManager<User> userManager */)
         {
-            UserManager = userManager;
+            // UserManager = userManager;
         }
 
         [HttpGet]
         public IActionResult GetUserAssets() {
             
-            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return Ok(userId);
+            // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return Ok(this.User.Claims.Single(claim => claim.Type == "sub").Value);
         }
 
         [HttpPut("{id}")]

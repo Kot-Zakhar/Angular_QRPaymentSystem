@@ -25,33 +25,23 @@ export class AssetService {
       name: '3st asset',
       id: 'e3fd79dc-189c-43bb-8d73-43ffe413ac05',
       amount: 1
-    },
-    {
-      name: '4st asset',
-      id: '41372cdf-d3e5-472f-b473-09dc4f4930c6',
-      amount: 125
-    },
-    {
-      name: '5st asset',
-      id: '913f4ddc-e976-4b7b-a784-2ab07e9db992',
-      amount: 1000
-    },
+    }
   ];
-  assetsBehaviourSubject = new BehaviorSubject<AssetViewModel[]>(this.defaultAssets);
+  assetsBehaviourSubject = new BehaviorSubject<AssetViewModel[]>(null);
 
   constructor(
     private http: HttpClient
   ) {
-    // this.http.get<AssetViewModel[]>('/api/asset').subscribe(
-    //   assets => {
-    //     this.assetsBehaviourSubject.next(assets);
-    //   },
-    //   error => {
-    //     this.log(error);
-    //     this.assetsBehaviourSubject.error(error);
-        // this.assetsBehaviourSubject.next([]);
-    //   }
-    // );
+    this.http.get<AssetViewModel[]>('/api/asset').subscribe(
+      assets => {
+        this.assetsBehaviourSubject.next(assets);
+      },
+      error => {
+        this.log(error);
+        this.assetsBehaviourSubject.error(error);
+        this.assetsBehaviourSubject.next([]);
+      }
+    );
   }
 
   updateAssetName(id: string, name: string) {

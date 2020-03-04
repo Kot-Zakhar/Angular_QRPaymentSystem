@@ -22,9 +22,6 @@ export class AssetsComponent implements OnInit {
     private assetService: AssetService,
     private snackBar: MatSnackBar
   ) {
-  }
-
-  ngOnInit() {
     this.assetService.assetsBehaviourSubject.subscribe(
       result => {
         this.assets = result;
@@ -34,6 +31,9 @@ export class AssetsComponent implements OnInit {
         this.snackBar.open('Cannot load your assets.', 'Ok', { duration: env.snackDurationInMs });
       }
     );
+  }
+
+  ngOnInit() {
   }
 
   onCreateAsset() {

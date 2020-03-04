@@ -1,26 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
+import { debug } from 'debug';
+import { AuthService } from 'src/app/services';
 
 @Component({
-  selector: 'app-callback',
-  template: '<div></div>',
+  template: '',
 })
 export class CallbackComponent implements OnInit {
+  private log = debug('app-callback-component');
 
   constructor(
-    private oauthService: OAuthService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(_ => {
-        if (!this.oauthService.hasValidIdToken() || !this.oauthService.hasValidAccessToken()) {
-            this.oauthService.initImplicitFlow('some-state');
-        } else {
-            this.router.navigate(['home']);
-        }
+    this.authService.tryLogin().then(_ => {
+      this.router.navigate(['home']);
     });
+    // this.oauthService.loadDiscoveryDocumentAndTryLogin().then(_ => {
+    //   if (!this.oauthService.hasValidIdToken() || !this.oauthService.hasValidAccessToken()) {
+    //     this.oauthService.initImplicitFlow();
+    //   } else {
+    //     this.router.navigate(['home']);
+    //   }
+    // });
   }
 
 }
