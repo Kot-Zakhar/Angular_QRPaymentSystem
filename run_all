@@ -1,0 +1,10 @@
+#!/bin/sh
+sudo docker start qrMySql
+code .
+cd ./*Client
+gnome-terminal --tab -- npm start
+cd ../*Identity*
+gnome-terminal --tab -- dotnet watch run
+cd ../*.Server/*Api
+gnome-terminal --tab -- dotnet watch run
+cd ../..
