@@ -4,6 +4,11 @@ DROP TABLE IF EXISTS `qr_payment_system_db`.`money_accounts` ;
 DROP TABLE IF EXISTS `qr_payment_system_db`.`users` ;
 
 -- -----------------------------------------------------
+-- Schema qr_payment_system_db
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `qr_payment_system_db` DEFAULT CHARACTER SET utf8 ;
+
+-- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`users`
 -- -----------------------------------------------------
 
