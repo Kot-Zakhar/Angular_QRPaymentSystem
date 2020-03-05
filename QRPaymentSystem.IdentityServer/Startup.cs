@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace QRPaymentSystem.IdentityServer
 {
@@ -35,6 +36,15 @@ namespace QRPaymentSystem.IdentityServer
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(IdentityConstants.ApplicationScheme);
+
+            services.Configure<CookiePolicyOptions>(options => {
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
+                options.Secure = CookieSecurePolicy.SameAsRequest;
+                options.OnAppendCookie = cookieContext => cookieContext.CookieOptions.Secure = false;
+                options.OnDeleteCookie = cookieContext => cookieContext.CookieOptions.Secure = false;
+            });
             
             var builder = services.AddIdentityServer(options =>
                 {
@@ -42,6 +52,8 @@ namespace QRPaymentSystem.IdentityServer
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
+
+                    
                 })
                 .AddInMemoryIdentityResources(Config.Ids)
                 .AddInMemoryApiResources(Config.Apis)
@@ -51,7 +63,6 @@ namespace QRPaymentSystem.IdentityServer
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -67,6 +78,7 @@ namespace QRPaymentSystem.IdentityServer
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
+            app.UseCookiePolicy();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

@@ -38,8 +38,9 @@ namespace QRPaymentSystem.IdentityServer
                     RedirectUris =
                     {
                         "http://localhost:4200",
-                        "http://localhost:4200/index.html",
+                        "http://localhost:4200/callback",
                         "http://localhost:4200/callback.html",
+                        "http://localhost:4200/index.html",
                         "http://localhost:4200/silent.html",
                         "http://localhost:4200/popup.html",
                     },
