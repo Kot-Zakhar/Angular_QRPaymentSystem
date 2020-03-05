@@ -1,7 +1,11 @@
+
+DROP TABLE IF EXISTS `qr_payment_system_db`.`transactions`;
+DROP TABLE IF EXISTS `qr_payment_system_db`.`money_accounts` ;
+DROP TABLE IF EXISTS `qr_payment_system_db`.`users` ;
+
 -- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `qr_payment_system_db`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`users` (
   `identity_id` VARCHAR(36) NOT NULL,
@@ -10,11 +14,9 @@ CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`users` (
   PRIMARY KEY (`identity_id`))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`money_accounts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `qr_payment_system_db`.`money_accounts` ;
 
 CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`money_accounts` (
   `id` VARCHAR(36) NOT NULL,
@@ -30,15 +32,13 @@ ENGINE = InnoDB;
 
 CREATE INDEX `fk_money_accounts_users_idx` ON `qr_payment_system_db`.`money_accounts` (`users_identity_id` ASC);
 
-
 -- -----------------------------------------------------
 -- Table `qr_payment_system_db`.`transactions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `qr_payment_system_db`.`transactions` ;
 
 CREATE TABLE IF NOT EXISTS `qr_payment_system_db`.`transactions` (
   `id` VARCHAR(36) NOT NULL,
-  `from_money_account_id` VARCHAR(36) NOT NULL,
+  `from_money_account_id` VARCHAR(36) NULL,
   `to_money_account_id` VARCHAR(36) NOT NULL,
   `amount` INT NOT NULL,
   `date` DATETIME NULL,
