@@ -1,8 +1,8 @@
-<div *ngFor="let asset of assets" class="asset-view_margin-bottom">
-    <app-small-asset-viewer [asset]="asset"></app-small-asset-viewer>
+<div *ngFor="let moneyAccount of moneyAccounts" class="moneyAccount-view_margin-bottom">
+    <app-small-money-account-viewer [moneyAccount]="moneyAccount"></app-small-money-account-viewer>
 </div>
 <div *ngIf="!creating; else creatingMode">
-    <button mat-raised-button class="button__width_100" (click)="onCreateAsset()"><mat-icon>add</mat-icon></button>
+    <button mat-raised-button class="button__width_100" (click)="onCreateMoneyAccount()"><mat-icon>add</mat-icon></button>
 </div>
 <ng-template #creatingMode>
     <mat-card>
@@ -11,7 +11,7 @@
                 <mat-label>Name</mat-label>
                 <input matInput [formControl]="nameFormControl">
             </mat-form-field>
-            <button mat-icon-button color="alert" aria-label="Save name" (click)="onSubmitAsset()"><mat-icon>save</mat-icon></button>
+            <button mat-icon-button color="alert" aria-label="Save name" (click)="onSubmitMoneyAccount()"><mat-icon>save</mat-icon></button>
             <button mat-icon-button aria-label="Cancel editing" (click)="onCancelCreation()"><mat-icon>cancel</mat-icon></button>
         </mat-card-title>
     </mat-card>

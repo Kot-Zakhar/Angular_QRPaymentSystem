@@ -15,18 +15,19 @@ export const routes = {
   history: 'history',
   transactionViewer: 'transaction',
   transactionCreator: 'create-transaction',
-  assets: 'assets',
+  moneyAccounts: 'money-accounts',
   payments: 'payments',
   home: 'home',
   login: 'login',
   register: 'register',
-  notFound: 'notfound'
+  notFound: 'notfound',
+  callback: 'callback'
 };
 
 export const authConfig: AuthConfig = {
   issuer: 'http://localhost:5050',
   requireHttps: false,
-  redirectUri: 'http://localhost:4200',
+  redirectUri: 'http://localhost:4200/callback',
   logoutUrl: 'http://localhost:4200',
   silentRefreshRedirectUri: 'http://localhost:4200/silent-refresh.html',
   clientId: 'ngspa',

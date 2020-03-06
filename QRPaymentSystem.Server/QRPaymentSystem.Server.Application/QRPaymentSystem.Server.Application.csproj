@@ -2,6 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QRPaymentSystem.Server.Domain\QRPaymentSystem.Server.Domain.csproj" />
+    <ProjectReference Include="..\QRPaymentSystem.Server.Repository\QRPaymentSystem.Server.Repository.csproj" />
+    <ProjectReference Include="..\QRPaymentSystem.Server.Repository.EntityFramework\QRPaymentSystem.Server.Repository.EntityFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

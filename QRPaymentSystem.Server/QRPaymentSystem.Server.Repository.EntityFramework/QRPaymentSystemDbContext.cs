@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using QRPaymentSystem.Server.Domain.Models;
+using QRPaymentSystem.Server.Repository.EntityFramework.Extensions;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace QRPaymentSystem.Server.Repository.EntityFramework
 {
@@ -30,6 +32,7 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework
 
                 entity.Property(e => e.Id)
                     .IsRequired()
+                    .HasConversion(new GuidToStringConverter())
                     .HasColumnName("id")
                     .HasColumnType("varchar(36)")
                     .HasCharSet("utf8mb4")
@@ -69,6 +72,7 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework
 
                 entity.Property(e => e.Id)
                     .IsRequired()
+                    .HasConversion(new GuidToStringConverter())
                     .HasColumnName("id")
                     .HasColumnType("varchar(36)")
                     .HasCharSet("utf8mb4")
@@ -84,13 +88,15 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework
                 
                 entity.Property(e => e.FromMoneyAccountId)
                     .IsRequired()
+                    .HasConversion(new GuidToStringConverter())
                     .HasColumnName("from_money_account_id")
                     .HasColumnType("varchar(36)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_0900_ai_ci");
 
-                entity.Property(e => e.FromMoneyAccountId)
+                entity.Property(e => e.ToMoneyAccountId)
                     .IsRequired()
+                    .HasConversion(new GuidToStringConverter())
                     .HasColumnName("to_money_account_id")
                     .HasColumnType("varchar(36)")
                     .HasCharSet("utf8mb4")
@@ -117,6 +123,11 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework
                     .HasName("identity_id");
 
                 entity.Property(e => e.Id)
+                    // .HasConversion(new GuidToStringConverter())
+                    .HasConversion<String>(
+                        guid => guid.ToString(),
+                        line => Guid.Parse(line)
+                    )
                     .HasColumnName("identity_id")
                     .HasColumnType("varchar(36)")
                     .HasCharSet("utf8mb4")

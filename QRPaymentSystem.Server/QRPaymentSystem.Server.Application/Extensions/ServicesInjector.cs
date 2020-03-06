@@ -8,7 +8,8 @@ namespace QRPaymentSystem.Server.Application.Extensions
     {
         public static void AddServices(this IServiceCollection services) {
             // services.AddScoped<TransactionInfoService>();
-
+            services.AddScoped<IMoneyAccountService, MoneyAccountService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

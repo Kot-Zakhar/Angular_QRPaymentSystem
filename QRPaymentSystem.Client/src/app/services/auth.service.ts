@@ -25,10 +25,7 @@ export class AuthService {
 
     this.oauthService.configure(authConfig);
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then(isLogged => {
-        this.log('is logged: ', isLogged);
-      });
+    this.tryLogin();
   }
 
   tryGetProfile() {
@@ -41,6 +38,7 @@ export class AuthService {
   tryLogin() {
     return this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(isLogged => {
+        this.log(isLogged ? 'Logged' : 'Not logged');
         if (isLogged) {
           this.oauthService.loadUserProfile()
             .then(profile => {

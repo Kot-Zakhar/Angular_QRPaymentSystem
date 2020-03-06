@@ -15,12 +15,12 @@ export class PaymentsComponent implements OnInit {
       name: 'New transfer',
       group: [
         {
-          name: 'To own asset',
+          name: 'To own moneyAccount',
           link: '',
           icon: 'swap_vertical_circle'
         },
         {
-          name: 'By asset number',
+          name: 'By moneyAccount number',
           link: '',
           icon: 'credit_card'
         },
@@ -56,7 +56,8 @@ export class PaymentsComponent implements OnInit {
         }
       ]
     }
-  ]
+  ];
+
   constructor(
   ) { }
 

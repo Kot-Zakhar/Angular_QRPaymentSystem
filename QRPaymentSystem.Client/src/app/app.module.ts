@@ -13,7 +13,7 @@ import {
   NavigationComponent,
   QrScannerComponent,
   CallbackComponent,
-  SmallAssetViewerComponent
+  SmallMoneyAccountViewerComponent
 } from './components';
 
 import {
@@ -24,12 +24,13 @@ import {
   TransactionViewerComponent,
   TransactionCreatorComponent,
   PaymentsComponent,
-  AssetsComponent
+  MoneyAccountsComponent
 } from './pages';
 
 import {
   AuthService,
-  TransactionService
+  TransactionService,
+  MoneyAccountService
 } from './services';
 
 import {
@@ -52,7 +53,7 @@ import {
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AssetIdMaskPipe } from './pipes/asset-number-mask.pipe';
+import { MoneyAccountIdMaskPipe } from './pipes/money-account-number-mask.pipe';
 import { AuthGuard } from './helpers/AuthGuard';
 
 @NgModule({
@@ -69,10 +70,10 @@ import { AuthGuard } from './helpers/AuthGuard';
     QrScannerComponent,
     TransactionViewerComponent,
     TransactionCreatorComponent,
-    AssetsComponent,
-    SmallAssetViewerComponent,
-    AssetIdMaskPipe,
+    MoneyAccountsComponent,
+    SmallMoneyAccountViewerComponent,
     CallbackComponent,
+    MoneyAccountIdMaskPipe,
   ],
   imports: [
     QRCodeModule,
@@ -110,7 +111,8 @@ import { AuthGuard } from './helpers/AuthGuard';
 
     // services
     AuthService,
-    TransactionService
+    TransactionService,
+    MoneyAccountService
   ],
   bootstrap: [AppComponent]
 })

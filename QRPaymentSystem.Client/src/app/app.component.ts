@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
   private log = debug('app-root-component');
   title = 'qrPaymentSystemApp';
   constructor(
-    private authService: AuthService
+    // private authService: AuthService
   ) {
-    this.authService.tryLogin();
+    // this.authService.tryLogin();
   }
 
   ngOnInit(): void {

@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'assetIdMask'
+  name: 'moneyAccountIdMask'
 })
-export class AssetIdMaskPipe implements PipeTransform {
+export class MoneyAccountIdMaskPipe implements PipeTransform {
 
   transform(value: string, ...args: any[]): any {
     const separator = args[0] || '-';

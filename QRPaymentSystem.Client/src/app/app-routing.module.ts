@@ -12,7 +12,7 @@ import {
   PaymentsComponent
 } from './pages';
 
-import { AssetsComponent } from './pages/user/assets/assets.component';
+import { MoneyAccountsComponent } from './pages/user/moneyAccounts/moneyAccounts.component';
 import { AuthGuard } from './helpers/AuthGuard';
 import { CallbackComponent } from './components';
 
@@ -22,15 +22,14 @@ import { CallbackComponent } from './components';
     RouterModule.forRoot([
       {
         path: routes.root,
-        // redirectTo: 'home',
-        pathMatch: 'full',
-        component: CallbackComponent
+        redirectTo: 'home',
+        pathMatch: 'full'
       },
       {
         path: routes.root,
         canActivateChild: [ AuthGuard ],
         children: [
-          { path: routes.assets, component: AssetsComponent },
+          { path: routes.moneyAccounts, component: MoneyAccountsComponent },
           { path: routes.payments, component: PaymentsComponent },
           {
             path: routes.payments,
@@ -43,6 +42,7 @@ import { CallbackComponent } from './components';
           // { path: routes.transactionViewer + '/:mytransactionId', component: TransactionViewerComponent },
         ]
       },
+      { path: routes.callback, component: CallbackComponent },
       { path: routes.home, component: HomeComponent },
       { path: routes.notFound + '/:notFoundPath', component: NotFoundComponent },
       { path: ':notFoundPath', redirectTo: routes.notFound + '/:notFoundPath' }

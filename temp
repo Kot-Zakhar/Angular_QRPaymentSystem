@@ -1,0 +1,178 @@
+
+
+
+
+
+
+[16:44:08 Debug] IdentityServer4.Hosting.CorsPolicyProvider
+CORS request made for path: /.well-known/openid-configuration from origin: http://localhost:4200
+
+[16:44:08 Debug] IdentityServer4.Services.InMemoryCorsPolicyService
+Client list checked and origin: http://localhost:4200 is allowed
+
+[16:44:08 Debug] IdentityServer4.Hosting.CorsPolicyProvider
+CorsPolicyService allowed origin: http://localhost:4200
+
+[16:44:08 Debug] IdentityServer4.Hosting.EndpointRouter
+Request path /.well-known/openid-configuration matched to endpoint type Discovery
+
+[16:44:08 Debug] IdentityServer4.Hosting.EndpointRouter
+Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryEndpoint
+
+[16:44:08 Information] IdentityServer4.Hosting.IdentityServerMiddleware
+Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryEndpoint for /.well-known/openid-configuration
+
+[16:44:08 Debug] IdentityServer4.Endpoints.DiscoveryEndpoint
+Start discovery request
+
+[16:44:08 Debug] IdentityServer4.Hosting.CorsPolicyProvider
+CORS request made for path: /.well-known/openid-configuration/jwks from origin: http://localhost:4200
+
+[16:44:08 Debug] IdentityServer4.Services.InMemoryCorsPolicyService
+Client list checked and origin: http://localhost:4200 is allowed
+
+[16:44:08 Debug] IdentityServer4.Hosting.CorsPolicyProvider
+CorsPolicyService allowed origin: http://localhost:4200
+
+[16:44:08 Debug] IdentityServer4.Hosting.EndpointRouter
+Request path /.well-known/openid-configuration/jwks matched to endpoint type Discovery
+
+[16:44:08 Debug] IdentityServer4.Hosting.EndpointRouter
+Endpoint enabled: Discovery, successfully created handler: IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+
+[16:44:08 Information] IdentityServer4.Hosting.IdentityServerMiddleware
+Invoking IdentityServer endpoint: IdentityServer4.Endpoints.DiscoveryKeyEndpoint for /.well-known/openid-configuration/jwks
+
+[16:44:08 Debug] IdentityServer4.Endpoints.DiscoveryKeyEndpoint
+Start key discovery request
+
+
+
+
+
+
+
+
+
+[16:44:55 Debug] IdentityServer4.Hosting.EndpointRouter
+Request path /connect/authorize matched to endpoint type Authorize
+
+[16:44:55 Debug] IdentityServer4.Hosting.EndpointRouter
+Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeEndpoint
+
+[16:44:55 Information] IdentityServer4.Hosting.IdentityServerMiddleware
+Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeEndpoint for /connect/authorize
+
+[16:44:55 Debug] IdentityServer4.Endpoints.AuthorizeEndpoint
+Start authorize request
+
+[16:44:55 Debug] IdentityServer4.Endpoints.AuthorizeEndpoint
+No user present in authorize request
+
+[16:44:55 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Start authorize request protocol validation
+
+[16:44:55 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+[16:44:55 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+
+[16:44:55 Debug] IdentityServer4.Endpoints.AuthorizeEndpoint
+ValidatedAuthorizeRequest
+{"ClientId": "ngspa", "ClientName": "Anguar SPA Client", "RedirectUri": "http://localhost:4200/callback", "AllowedRedirectUris": ["http://localhost:4200", "http://localhost:4200/callback", "http://localhost:4200/callback.html", "http://localhost:4200/index.html", "http://localhost:4200/silent.html", "http://localhost:4200/popup.html"], "SubjectId": "anonymous", "ResponseType": "id_token token", "ResponseMode": "fragment", "GrantType": "implicit", "RequestedScopes": "openid profile email qrApi", "State": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT", "UiLocales": null, "Nonce": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT", "AuthenticationContextReferenceClasses": null, "DisplayMode": null, "PromptMode": null, "MaxAge": null, "LoginHint": null, "SessionId": null, "Raw": {"response_type": "id_token token", "client_id": "ngspa", "state": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT", "redirect_uri": "http://localhost:4200/callback", "scope": "openid profile email qrApi", "nonce": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT"}, "$type": "AuthorizeRequestValidationLog"}
+
+[16:44:55 Information] IdentityServer4.ResponseHandling.AuthorizeInteractionResponseGenerator
+Showing login: User is not authenticated
+
+[16:44:55 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Start authorize request protocol validation
+
+[16:44:55 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+[16:44:55 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+
+[16:44:55 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+
+
+
+
+
+[16:46:14 Debug] IdentityServer4.Hosting.CorsPolicyProvider
+CORS request made for path: /Account/Login from origin: null but was ignored because path was not for an allowed IdentityServer CORS endpoint
+
+[16:46:14 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Start authorize request protocol validation
+
+[16:46:14 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+[16:46:14 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+
+[16:46:14 Debug] IdentityServer4.Hosting.IdentityServerAuthenticationService
+Augmenting SignInContext
+
+[16:46:14 Debug] IdentityServer4.Hosting.IdentityServerAuthenticationService
+Adding idp claim with value: local
+
+[16:46:14 Debug] IdentityServer4.Hosting.IdentityServerAuthenticationService
+Adding auth_time claim with value: 1583415974
+
+[16:46:14 Information] Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler
+AuthenticationScheme: Identity.Application signed in.
+
+[16:46:14 Information] IdentityServer4.Events.DefaultEventService
+{"Username": "alice", "Provider": null, "ProviderUserId": null, "SubjectId": "1934fa34-dce8-4dd0-8b0f-a8304c548df2", "DisplayName": "alice", "Endpoint": "UI", "ClientId": "ngspa", "Category": "Authentication", "Name": "User Login Success", "EventType": "Success", "Id": 1000, "Message": null, "ActivityId": "0HLU11BOKF13I:00000003", "TimeStamp": "2020-03-05T13:46:14.0000000Z", "ProcessId": 8117, "LocalIpAddress": "::1:5050", "RemoteIpAddress": "::1", "$type": "UserLoginSuccessEvent"}
+
+[16:46:14 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+[16:46:14 Debug] IdentityServer4.Hosting.EndpointRouter
+Request path /connect/authorize/callback matched to endpoint type Authorize
+
+[16:46:14 Debug] IdentityServer4.Hosting.EndpointRouter
+Endpoint enabled: Authorize, successfully created handler: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+
+[16:46:14 Information] IdentityServer4.Hosting.IdentityServerMiddleware
+Invoking IdentityServer endpoint: IdentityServer4.Endpoints.AuthorizeCallbackEndpoint for /connect/authorize/callback
+
+[16:46:14 Debug] IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+Start authorize callback request
+
+[16:46:14 Debug] IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+No user present in authorize request
+
+[16:46:14 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Start authorize request protocol validation
+
+[16:46:14 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+[16:46:14 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+
+[16:46:14 Debug] IdentityServer4.Endpoints.AuthorizeCallbackEndpoint
+ValidatedAuthorizeRequest
+{"ClientId": "ngspa", "ClientName": "Anguar SPA Client", "RedirectUri": "http://localhost:4200/callback", "AllowedRedirectUris": ["http://localhost:4200", "http://localhost:4200/callback", "http://localhost:4200/callback.html", "http://localhost:4200/index.html", "http://localhost:4200/silent.html", "http://localhost:4200/popup.html"], "SubjectId": "anonymous", "ResponseType": "id_token token", "ResponseMode": "fragment", "GrantType": "implicit", "RequestedScopes": "openid profile email qrApi", "State": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT", "UiLocales": null, "Nonce": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT", "AuthenticationContextReferenceClasses": null, "DisplayMode": null, "PromptMode": null, "MaxAge": null, "LoginHint": null, "SessionId": null, "Raw": {"response_type": "id_token token", "client_id": "ngspa", "state": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT", "redirect_uri": "http://localhost:4200/callback", "scope": "openid profile email qrApi", "nonce": "bqloYAtDwjXZxAuR3WsJQLzysRsvSPFZ14GOBkPM0exRT"}, "$type": "AuthorizeRequestValidationLog"}
+
+[16:46:14 Information] IdentityServer4.ResponseHandling.AuthorizeInteractionResponseGenerator
+Showing login: User is not authenticated
+
+[16:46:14 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Start authorize request protocol validation
+
+[16:46:14 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+[16:46:14 Debug] IdentityServer4.Validation.AuthorizeRequestValidator
+Calling into custom validator: IdentityServer4.Validation.DefaultCustomAuthorizeRequestValidator
+
+[16:46:14 Debug] IdentityServer4.Stores.ValidatingClientStore
+client configuration validation for client ngspa succeeded.
+
+

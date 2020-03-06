@@ -19,17 +19,21 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework
 
         public T Create(T item)
         {
-            return _typeSet.Add(item).Entity;
+            var savedItem = _typeSet.Add(item);
+            _context.SaveChanges();
+            return savedItem.Entity;
         }
 
         public bool Delete(T item)
         {
-            return _typeSet.Remove(item).State == EntityState.Deleted;
+            var deleted = _typeSet.Remove(item).State == EntityState.Deleted;
+            _context.SaveChanges();
+            return deleted;
         }
 
-        public bool DeleteById(Guid? id)
+        public bool DeleteById(Guid id)
         {
-            T entity = GetById(id.GetValueOrDefault(Guid.Empty));
+            T entity = GetById(id);
             if (entity != null)
                 return Delete(entity);
             return false;
@@ -40,9 +44,9 @@ namespace QRPaymentSystem.Server.Repository.EntityFramework
             return _typeSet;
         }
 
-        public T GetById(Guid? id)
+        public T GetById(Guid id)
         {
-            return _typeSet.Find(id.GetValueOrDefault(Guid.Empty));
+            return _typeSet.Find(id);
         }
 
         public void Save()
